@@ -22,6 +22,7 @@ const theme = createTheme(
 );
 
 function Gridform() {
+/*
 
     const columns = [
     { field: 'id', 
@@ -70,7 +71,6 @@ function Gridform() {
       editable: true,
     }
   ];
-
   const [consultaGrid, SetConsultaGrid] = useState ([]);
   
   useEffect(()  =>{
@@ -99,6 +99,27 @@ params:{
   total:row.total
 
  }));
+*/
+
+
+const columns = [
+  { field: 'firstName', headerName: 'First name', width: 130 },
+  { field: 'lastName', headerName: 'Last name', width: 130 },
+  {
+    field: 'fullName',
+    headerName: 'Full name',
+    width: 160,
+  },
+];
+
+const rows = [
+  { id: 1, lastName: 'Snow', firstName: 'Jon', fullName:'demo'  },
+  { id: 2, lastName: 'Lannister', firstName: 'Cersei', fullName:'demo'  },
+  { id: 3, lastName: 'Lannister', firstName: 'Jaime', fullName:'demo'  },
+  { id: 4, lastName: 'Stark', firstName: 'Arya', fullName:'demo'  },
+  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', fullName:'demo' },
+];
+
 
   return (
     <>

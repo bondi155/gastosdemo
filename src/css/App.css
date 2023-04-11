@@ -19,6 +19,11 @@
   
 }
 
+.btn-submit{
+  float: right;
+  padding-right: 25.5%;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -88,6 +93,8 @@ height: 100vh;
   html {
     padding:0;
     margin:0;
+    background-color: #d3cdcd;
+
 }
 
 *{

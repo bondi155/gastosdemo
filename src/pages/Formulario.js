@@ -186,15 +186,15 @@ function Formulario() {
                 </Row>
               </Container>
             </Card>
-          <br></br>
-            <Card className='mt-3'>
-              <Container className='mb-5 '>
+            <br></br>
+            <Card className='mt-1'>
+              <Container className='mb-3 '>
                 <Row>
                   <Card.Header style={divStyle} className='mb-3'>
                     <strong>Presupuesto</strong>
                   </Card.Header>
                   <Col md={12}>
-                    <Form.Group className='mb-3 mt-3'>
+                    <Form.Group className='mb-3 mt-1'>
                       <FloatingLabel
                         controlId='floatingSelect'
                         label='Compañia'
@@ -257,7 +257,7 @@ function Formulario() {
                 </Row>
                 <Row>
                   <Col md={8}>
-                    <Form.Group className='mb-3'>
+                    <Form.Group>
                       <FloatingLabel controlId='floatingSelect' label='Area'>
                         <Form.Select
                           aria-label='Default select example'
@@ -278,209 +278,189 @@ function Formulario() {
                 </Row>
               </Container>
             </Card>
-         
-          <Container>
+
+            <Container>
               <Row>
                 <Col lg>
-              <Card className='mt-3'>
-            <Card.Header style={divStyle} className='mb-3 pt-3'>
-                    <strong>Lineas</strong>
-                  </Card.Header>
-            <Table responsive striped bordered hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Cod.Articulo</th>
-          <th>Descripción</th>
-          <th>Cantidad</th>
-          <th>P.U</th>
-          <th>Dscto.</th>
-          <th>Subtotal</th>
-          <th>IVA</th>
-          <th>Total</th>
-           </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td >Larry the Bird</td>
-          <td>@twitter</td>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-        </tr>
-      </tbody>
-    </Table>
-    </Card>
-    </Col>
+                  <Card className='mt-3'>
+                    <Card.Header style={divStyle} className='mb-3 pt-3'>
+                      <strong>Lineas</strong>
+                    </Card.Header>
+                    <Table responsive striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Cod.Articulo</th>
+                          <th>Descripción</th>
+                          <th>Cantidad</th>
+                          <th>P.U</th>
+                          <th>Dscto.</th>
+                          <th>Subtotal</th>
+                          <th>IVA</th>
+                          <th>Total</th>
+                          <th>Acción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>1</td>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>@mdo</td>
+                          <td>
+                            {' '}
+                            <Button variant='primary' size='sm'>
+                              Agregar
+                            </Button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Card>
+                </Col>
               </Row>
               <Row>
                 <Col lg>
-              <Card className='mt-3'>
-            <Card.Header style={divStyle} className='mb-3 pt-3'>
-                    <strong>Pago</strong>
-                  </Card.Header>
-            <Table responsive striped bordered hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Tipo</th>
-          <th>Banco</th>
-          <th>Cuenta</th>
-          <th>Clabe</th>
-          <th>Importe.</th>
-         
-           </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>1</td>
-          <td>Mark</td>
-        
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>1</td>
-          <td>Mark</td>
-          
-        </tr>
-        <tr>
-          <td>3</td>
-          <td >Larry the Bird</td>
-          <td>@twitter</td>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-        </tr>
-      </tbody>
-    </Table>
-    </Card>
-    </Col>
+                  <Card className='mt-3'>
+                    <Card.Header style={divStyle} className='mb-3 pt-3'>
+                      <strong>Pago</strong>
+                    </Card.Header>
+                    <Table responsive striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Tipo</th>
+                          <th>Banco</th>
+                          <th>Cuenta</th>
+                          <th>Clabe</th>
+                          <th>Importe.</th>
+                          <th>Acción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>1</td>
+                          <td>Mark</td>
+                          <td>
+                            {' '}
+                            <Button variant='primary' size='sm'>
+                              Guardar
+                            </Button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Card>
+                </Col>
               </Row>
               <Row className='mt-3 pb-3 pt-3'>
-              <Col xs={12}>
-                <FloatingLabel
-                  controlId='floatingTextarea2'
-                  label='Comentarios'
-                >
-                  <Form.Control
-                    as='textarea'
-                    placeholder='Comentario'
-                    style={{ height: '100px' }}
-                  />
-                </FloatingLabel>
-              </Col>
-            </Row>
+                <Col xs={12}>
+                  <FloatingLabel
+                    controlId='floatingTextarea2'
+                    label='Comentarios'
+                  >
+                    <Form.Control
+                      as='textarea'
+                      placeholder='Comentario'
+                      style={{ height: '100px' }}
+                    />
+                  </FloatingLabel>
+                </Col>
+              </Row>
             </Container>
             <div className='cont-cards'>
-        <CardGroup> 
-      <div className='btn'>          
-        <Card className='pb-3 mt-3 mb-3' style={{ width: '18rem' }}>
-              <Card.Body>
-                <Card.Title>Solicitante</Card.Title>
-                <Form.Group className='pb-3 pt-3'>
-                  <FloatingLabel controlId='floatingSelect' label='Solicitante'>
-                    <Form.Control
-                      type='text'
-                      name='folio'
-                      placeholder='Folio Factura'
-                      // onChange={handleInputChange}
-                    />
-                  </FloatingLabel>
-                </Form.Group>
-                <Form.Group className='pb-3 pt-3'>
-                  <FloatingLabel
-                    controlId='floatingSelect'
-                    label='Fecha Creación'
-                  >
-                    <Form.Control
-                      type='date'
-                      name='fecha_aprob'
-                      placeholder='Fecha Aprobación'
-                      // onChange={handleInputChange}
-                    />
-                  </FloatingLabel>
-                </Form.Group>
-              </Card.Body>
-            </Card>
+              <CardGroup>
+                <div className='btn'>
+                  <Card className='pb-3 mt-3 mb-3' style={{ width: '20rem' }}>
+                    <Card.Body>
+                      <Card.Title>Solicitante</Card.Title>
+                      <Form.Group className='pb-3 pt-3'>
+                        <FloatingLabel
+                          controlId='floatingSelect'
+                          label='Solicitante'
+                        >
+                          <Form.Control
+                            type='text'
+                            name='folio'
+                            placeholder='Folio Factura'
+                            // onChange={handleInputChange}
+                          />
+                        </FloatingLabel>
+                      </Form.Group>
+                      <Form.Group className='pb-3 pt-3'>
+                        <FloatingLabel
+                          controlId='floatingSelect'
+                          label='Fecha Creación'
+                        >
+                          <Form.Control
+                            type='date'
+                            name='fecha_aprob'
+                            placeholder='Fecha Aprobación'
+                            // onChange={handleInputChange}
+                          />
+                        </FloatingLabel>
+                      </Form.Group>
+                    </Card.Body>
+                  </Card>
+                </div>
+                <div className='btn'>
+                  <Card className='pb-3 mt-3 mb-3' style={{ width: '20rem' }}>
+                    <Card.Body>
+                      <Card.Title>Autoriza</Card.Title>
+                      <Form.Group className='pb-3 pt-3'>
+                        <FloatingLabel
+                          controlId='floatingSelect'
+                          label='Autoriza'
+                        >
+                          <Form.Control
+                            type='text'
+                            name='autoriza'
+                            placeholder='Autoriza'
+                            // onChange={handleInputChange}
+                          />
+                        </FloatingLabel>
+                      </Form.Group>
+                      <Form.Group className='pb-3 pt-3'>
+                        <FloatingLabel
+                          controlId='floatingSelect'
+                          label='Fecha Creación'
+                        >
+                          <Form.Control
+                            type='date'
+                            name='fecha_aprob'
+                            placeholder='Fecha Aprobación'
+                            // onChange={handleInputChange}
+                          />
+                        </FloatingLabel>
+                      </Form.Group>
+                    </Card.Body>
+                  </Card>
+                </div>
+              </CardGroup>
+            </div>
+          </div>
+          <div className='btn-submit pb-1'>
+            <div className='btn'>
+              <Button variant='primary' size='sm'>
+                Guardar
+              </Button>
             </div>
             <div className='btn'>
-            <Card className='pb-3 mt-3 mb-3' style={{ width: '18rem' }}>
-              <Card.Body>
-                <Card.Title>Autoriza</Card.Title>
-                <Form.Group className='pb-3 pt-3'>
-                  <FloatingLabel controlId='floatingSelect' label='Autoriza'>
-                    <Form.Control
-                      type='text'
-                      name='autoriza'
-                      placeholder='Autoriza'
-                      // onChange={handleInputChange}
-                    />
-                  </FloatingLabel>
-                </Form.Group>
-                <Form.Group className='pb-3 pt-3'>
-                  <FloatingLabel
-                    controlId='floatingSelect'
-                    label='Fecha Creación'
-                  >
-                    <Form.Control
-                      type='date'
-                      name='fecha_aprob'
-                      placeholder='Fecha Aprobación'
-                      // onChange={handleInputChange}
-                    />
-                  </FloatingLabel>
-                </Form.Group>
-              </Card.Body>
-            </Card>
-                  </div>
-                  </CardGroup>
-                  </div>
-
-          <div className='btn'>
-          <Button variant='primary'>Guardar</Button>
+              <Button variant='outline-primary' size='sm'>
+                Cancelar
+              </Button>{' '}
+            </div>
           </div>
-          <div className='btn'>
-          <Button variant='primary'>Cancelar</Button>{' '}
-          </div>
-
-          </div>
-
-          
         </Form>
-        
       </div>
     </>
   );

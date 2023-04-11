@@ -65,12 +65,9 @@ function Login() {
             <Typography component='h1' variant='h5'></Typography>
             <img alt='' src={logo} />
             <br></br>
-            <h2>Bienvenido {login.usuario}</h2>
-
             <Box component='form' noValidate sx={{ mt: 1 }}>
 
-
-              <TextField
+               <TextField
                 margin='normal'
                 required
                 color='warning'

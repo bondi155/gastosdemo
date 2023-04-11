@@ -44,9 +44,6 @@ const soloLogo = require('../components/img/sololog.png');
               <LinkContainer to='/consulta'>
                 <Nav.Link>Consulta</Nav.Link>
               </LinkContainer>
-              <LinkContainer to='/aprobacion'>
-                <Nav.Link>Aprobación</Nav.Link>
-              </LinkContainer>
             </Nav>
             <Form className='d-flex'>
               <Form.Control

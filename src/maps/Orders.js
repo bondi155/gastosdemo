@@ -13,6 +13,7 @@ function createData(id, date, name, shipTo, paymentMethod, amount) {
   return { id, date, name, shipTo, paymentMethod, amount };
 }
 
+
 const rows = [
   createData(
     0,
@@ -61,7 +62,7 @@ function preventDefault(event) {
 }
 
 export default function Orders() {
-  
+  /*
 const [dashGrid, SetDashGrid] = useState([])
 
 useEffect(()  =>{
@@ -79,12 +80,12 @@ useEffect(()  =>{
   });
    }, []);
   
-  //let rows = dashGrid.map((row) =>({
-    //id:row.id,
-    //razon_social :row.razon_social,
-    //monto: row.sector
-  // }));
-  
+  let rows = dashGrid.map((row) =>({
+    id:row.id,
+    razon_social :row.razon_social,
+    monto: row.sector
+   }));
+  */
   return (
     <React.Fragment>
       <Title>Gastos Recientes</Title>

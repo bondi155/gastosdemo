@@ -6,7 +6,6 @@ import NavigationBar from './components/NavigationBar';
 import Consulta from './pages/Consulta';
 import Formulario from './pages/Formulario';
 import Dashboard from './dashboard/Dashboard';
-import Aprob from './pages/Aprobacion';
 
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
             <Route path='/*' element={<Navigate replace to='/login' />} />
             <Route element={<NavigationBar />}>
             <Route path='/inicio' element={<Dashboard/>} />
-            <Route path='/aprobacion' element={<Aprob />} />
             <Route path='/form' element={<Formulario />} />
             <Route path='/consulta' element={<Consulta />} />
           </Route>
