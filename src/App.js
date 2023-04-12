@@ -21,7 +21,7 @@ function App() {
             <Route path='/inicio' element={<Dashboard/>} />
             <Route path='/form' element={<Formulario />} />
             <Route path='/consulta' element={<Consulta />} />
-          </Route>
+          </Route> 
         </Routes>
       </BrowserRouter>
       </>

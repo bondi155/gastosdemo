@@ -9,15 +9,17 @@ function createData(time, amount) {
 }
 
 const data = [
-  createData('00:00', 0),
-  createData('03:00', 300),
-  createData('06:00', 600),
-  createData('09:00', 800),
-  createData('12:00', 1500),
-  createData('15:00', 2000),
-  createData('18:00', 2400),
-  createData('21:00', 2400),
-  createData('24:00', undefined),
+  createData('02/03', 1800),
+  createData('03/03', 300),
+  createData('04/03', 600),
+  createData('05/03', 800),
+  createData('06/03', 1500),
+  createData('07/03', 0),
+  createData('08/03', 0),
+  createData('09/03', 2400),
+  createData('10/03', 3000),
+  createData('11/03', 3000),
+
 ];
 
 export default function Chart() {
@@ -25,7 +27,7 @@ export default function Chart() {
 
   return (
     <React.Fragment>
-      <Title>Hoy</Title>
+      <Title>Gastos totales por día (Últimos 10 días)</Title>
       <ResponsiveContainer>
         <LineChart
           data={data}
@@ -54,7 +56,7 @@ export default function Chart() {
                 ...theme.typography.body1,
               }}
             >
-              Gastos ($)
+            Importe ($)
             </Label>
           </YAxis>
           <Line

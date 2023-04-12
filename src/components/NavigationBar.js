@@ -52,7 +52,7 @@ const soloLogo = require('../components/img/sololog.png');
                 className='me-2'
                 aria-label='Search'
               />
-              <Button variant='primary'>Buscar</Button>
+              <Button  size='sm'    variant='primary'>Buscar</Button>
             </Form>
           </Navbar.Collapse>
         </Container>

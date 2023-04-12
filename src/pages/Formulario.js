@@ -5,6 +5,8 @@ import axios from 'axios';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import '../css/App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import Chart from '../dashboard/Chart';
+
 
 function Formulario() {
   const [formGasto, setFormGasto] = useState({
@@ -91,12 +93,11 @@ function Formulario() {
               <Form.Group className='mb-3'>
                 <FloatingLabel
                   controlId='floatingSelect'
-                  label='Fecha Creación'
+                label='Fecha De Creación'
                 >
                   <Form.Control
                     type='date'
                     name='fecha_elabora'
-                    placeholder='Fecha Elaboración'
                     onChange={handleInputChange}
                   />
                 </FloatingLabel>
@@ -117,7 +118,7 @@ function Formulario() {
                     <Form.Group className='mb-3'>
                       <FloatingLabel
                         controlId='floatingSelect'
-                        label='Razon Social'
+                        label='Razon Social Proveedor'
                       >
                         <Form.Select
                           aria-label='Default select example'
@@ -143,7 +144,7 @@ function Formulario() {
                     <Form.Group className='mb-3'>
                       <FloatingLabel
                         controlId='floatingSelect'
-                        label='Fecha Facturación'
+                       label='Fecha Facturación'
                       >
                         <Form.Control
                           type='date'
@@ -156,7 +157,7 @@ function Formulario() {
                   </Col>
                   <Col md={{ span: 6, offset: 2 }}>
                     <Form.Group className='mb-3'>
-                      <FloatingLabel controlId='floatingSelect' label='Folio'>
+                      <FloatingLabel controlId='floatingSelect' label='Folio Factura'>
                         <Form.Control
                           type='text'
                           name='folio'
@@ -172,12 +173,11 @@ function Formulario() {
                     <Form.Group className='mb-3'>
                       <FloatingLabel
                         controlId='floatingSelect'
-                        label='Descripción'
+                        label='Descripción Factura'
                       >
                         <Form.Control
                           type='text'
-                          name='descripcion'
-                          placeholder='Descripción'
+                          name='descripcion'  
                           onChange={handleInputChange}
                         />
                       </FloatingLabel>
@@ -193,18 +193,46 @@ function Formulario() {
                   <Card.Header style={divStyle} className='mb-3'>
                     <strong>Presupuesto</strong>
                   </Card.Header>
-                  <Col md={12}>
-                    <Form.Group className='mb-3 mt-1'>
-                      <FloatingLabel
+                  <Col className='mb-3' md={6}>
+                  <FloatingLabel
                         controlId='floatingSelect'
-                        label='Compañia'
+                        label='Compañia del Corporativo'
                       >
-                        <Form.Control
-                          type='text'
+                        <Form.Select
+                          aria-label='Default select example'
                           name='empresa_pagadora'
-                          placeholder='Empresa Pagadora'
+                          value={formGasto.razon_social}
                           onChange={handleInputChange}
-                        />
+                        >
+                          <option disabled value=''>
+                            {' '}
+                          </option>
+                          <option value='Empresa 1'>Empresa 1</option>
+                          <option value='Empresa 2'>Empresa 2</option>
+                          <option value='Empresa 3'>Empresa 3</option>
+                          <option value='microsoft'>Empresa 4</option>
+                         
+                        </Form.Select>
+                      </FloatingLabel>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group>
+                      <FloatingLabel controlId='floatingSelect' label='Area'>
+                        <Form.Select
+                          aria-label='Default select example'
+                          name='area'
+                          value={formGasto.area}
+                          onChange={handleInputChange}
+                        >
+                          <option disabled value=''>
+                            {' '}
+                          </option>
+                          <option value='finanza'>Finanzas</option>
+                          <option value='administracion'>Administración</option>
+                          <option value='rrhh'>RRHH</option>
+                          <option value='audito'>Auditoria</option>
+                          <option value='marketing'>Marketing</option>
+                        </Form.Select>
                       </FloatingLabel>
                     </Form.Group>
                   </Col>
@@ -225,9 +253,14 @@ function Formulario() {
                           <option disabled value=''>
                             {' '}
                           </option>
-                          <option value='tipo1'>tipo 1</option>
-                          <option value='2'>*</option>
-                          <option value='3'>*</option>
+                          <option value='1'>Viaticos</option>
+                          <option value='2'>Anticipos</option>
+                          <option value='3'>Servicios</option>
+                          <option value='4'>Licencias</option>
+                          <option value='5'>Moviliaria</option>
+
+                          <option value='6'>Papeleria</option>
+
                         </Form.Select>
                       </FloatingLabel>
                     </Form.Group>
@@ -247,80 +280,70 @@ function Formulario() {
                           <option disabled value=''>
                             {' '}
                           </option>
-                          <option value='ceco1'>ceco 1</option>
-                          <option value='2'>*</option>
-                          <option value='3'>*</option>
+                          <option value='1'>Nómina</option>
+                          <option value='2'>Legal</option>
+                          <option value='3'>RRHH</option>
+                          <option value='4'>Contabilidad</option>
+                          <option value='5'>Contraloria</option>
+                          <option value='6'>SAC</option>
                         </Form.Select>
                       </FloatingLabel>
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row>
-                  <Col md={8}>
-                    <Form.Group>
-                      <FloatingLabel controlId='floatingSelect' label='Area'>
-                        <Form.Select
-                          aria-label='Default select example'
-                          name='area'
-                          value={formGasto.area}
-                          onChange={handleInputChange}
-                        >
-                          <option disabled value=''>
-                            {' '}
-                          </option>
-                          <option value='Area1'>Area1</option>
-                          <option value='2'>*</option>
-                          <option value='3'>*</option>
-                        </Form.Select>
-                      </FloatingLabel>
-                    </Form.Group>
-                  </Col>
+                
                 </Row>
               </Container>
             </Card>
-
+            </div>
+      <div className='grids'> 
             <Container>
               <Row>
                 <Col lg>
                   <Card className='mt-3'>
                     <Card.Header style={divStyle} className='mb-3 pt-3'>
-                      <strong>Lineas</strong>
+                      <strong>Lineas de la factura o recibo</strong>
                     </Card.Header>
                     <Table responsive striped bordered hover>
                       <thead>
                         <tr>
-                          <th>#</th>
                           <th>Cod.Articulo</th>
                           <th>Descripción</th>
                           <th>Cantidad</th>
-                          <th>P.U</th>
+                          <th>Precio Unitario</th>
                           <th>Dscto.</th>
                           <th>Subtotal</th>
                           <th>IVA</th>
                           <th>Total</th>
-                          <th>Acción</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
+                          <td>89786453</td>
+                          <td>Uber Querétaro</td>
                           <td>1</td>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                          <td>1</td>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                          <td>@mdo</td>
+                          <td>$ 320.00</td>
+                          <td>$ 0.00</td>
+                          <td>$ 320.00</td>
+                          <td>$ 51.20</td>
+                          <td>$ 371.20</td>
                           <td>
                             {' '}
-                            <Button variant='primary' size='sm'>
-                              Agregar
-                            </Button>
+                            <Button variant='danger' size='sm'>
+                            Eliminar                            </Button>
                           </td>
                         </tr>
+                 
                       </tbody>
                     </Table>
+                    <Row>
+                          <Col className='mb-2 ' md={{ span: 4, offset: 9}}>
+                        <Button variant='primary mt-2' size='sm'>
+                            Agregar linea                            </Button>
+                            </Col>
+                          </Row> 
                   </Card>
                 </Col>
               </Row>
@@ -328,37 +351,42 @@ function Formulario() {
                 <Col lg>
                   <Card className='mt-3'>
                     <Card.Header style={divStyle} className='mb-3 pt-3'>
-                      <strong>Pago</strong>
+                      <strong>Detalle del pago</strong>
                     </Card.Header>
                     <Table responsive striped bordered hover>
                       <thead>
                         <tr>
-                          <th>#</th>
-                          <th>Tipo</th>
+                          <th>Forma de Pago</th>
                           <th>Banco</th>
                           <th>Cuenta</th>
                           <th>Clabe</th>
-                          <th>Importe.</th>
-                          <th>Acción</th>
+                          <th>Importe</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>1</td>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                          <td>1</td>
-                          <td>Mark</td>
+                          <td>T.C.</td>
+                          <td>Santander</td>
+                          <td>789056789</td>
+                          <td>1234567891234567</td>
+                          <td>$ 371.20</td>
+                          <td>$ 371.20</td>
+
                           <td>
                             {' '}
-                            <Button variant='primary' size='sm'>
-                              Guardar
-                            </Button>
+                            <Button variant='danger' size='sm'>
+                          Eliminar                              </Button>
                           </td>
                         </tr>
                       </tbody>
                     </Table>
+                    <Row>
+                          <Col className='mb-2 ' md={{ span: 4, offset: 9}}>
+                        <Button variant='primary mt-2' size='sm'>
+                            Agregar linea                            </Button>
+                            </Col>
+                          </Row> 
                   </Card>
                 </Col>
               </Row>
@@ -377,25 +405,27 @@ function Formulario() {
                 </Col>
               </Row>
             </Container>
+            </div>
             <div className='cont-cards'>
               <CardGroup>
                 <div className='btn'>
-                  <Card className='pb-3 mt-3 mb-3' style={{ width: '20rem' }}>
+                  <Card className='pb-3 mt-3 mb-3' style={{ width: '23rem' }}>
                     <Card.Body>
                       <Card.Title>Solicitante</Card.Title>
                       <Form.Group className='pb-3 pt-3'>
                         <FloatingLabel
                           controlId='floatingSelect'
-                          label='Solicitante'
+                          label='Nombre(s) y Apellido(s)'
                         >
                           <Form.Control
                             type='text'
                             name='folio'
                             placeholder='Folio Factura'
-                            // onChange={handleInputChange}
                           />
                         </FloatingLabel>
                       </Form.Group>
+                      <Row>
+                      <Col md={{ span: 6, offset: 3 }}> 
                       <Form.Group className='pb-3 pt-3'>
                         <FloatingLabel
                           controlId='floatingSelect'
@@ -405,22 +435,24 @@ function Formulario() {
                             type='date'
                             name='fecha_aprob'
                             placeholder='Fecha Aprobación'
-                            // onChange={handleInputChange}
                           />
                         </FloatingLabel>
                       </Form.Group>
+                      </Col>
+                      </Row>
                     </Card.Body>
                   </Card>
                 </div>
                 <div className='btn'>
-                  <Card className='pb-3 mt-3 mb-3' style={{ width: '20rem' }}>
+                  <Card className='pb-3 mt-3 mb-3' style={{ width: '23rem' }}>
                     <Card.Body>
                       <Card.Title>Autoriza</Card.Title>
                       <Form.Group className='pb-3 pt-3'>
                         <FloatingLabel
                           controlId='floatingSelect'
-                          label='Autoriza'
+                          label='Nombre(s) y Apellido(s)'
                         >
+                      
                           <Form.Control
                             type='text'
                             name='autoriza'
@@ -429,6 +461,8 @@ function Formulario() {
                           />
                         </FloatingLabel>
                       </Form.Group>
+                      <Row>
+                          <Col md={{ span: 6, offset: 3 }}>
                       <Form.Group className='pb-3 pt-3'>
                         <FloatingLabel
                           controlId='floatingSelect'
@@ -442,12 +476,15 @@ function Formulario() {
                           />
                         </FloatingLabel>
                       </Form.Group>
+                      </Col> 
+
+                      </Row>
+
                     </Card.Body>
                   </Card>
                 </div>
               </CardGroup>
             </div>
-          </div>
           <div className='btn-submit pb-1'>
             <div className='btn'>
               <Button variant='primary' size='sm'>
