@@ -4,8 +4,9 @@ import Login from './pages/Login';
 //import Home from './pages/Home';
 import NavigationBar from './components/NavigationBar';
 import Consulta from './pages/Consulta';
-import Formulario from './pages/Formulario';
+import FmGastos from './pages/FmGastos';
 import Dashboard from './dashboard/Dashboard';
+import FmIngresos from './pages/FmIngreso';
 
 
 function App() {
@@ -19,8 +20,11 @@ function App() {
             <Route path='/*' element={<Navigate replace to='/login' />} />
             <Route element={<NavigationBar />}>
             <Route path='/inicio' element={<Dashboard/>} />
-            <Route path='/form' element={<Formulario />} />
+            <Route path='/fmgastos' element={<FmGastos />} />
             <Route path='/consulta' element={<Consulta />} />
+            <Route path='/fmingresos' element={<FmIngresos />} />
+
+            
           </Route> 
         </Routes>
       </BrowserRouter>

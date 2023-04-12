@@ -5,10 +5,8 @@ import axios from 'axios';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import '../css/App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import Chart from '../dashboard/Chart';
 
-
-function Formulario() {
+function Fm_Gastos() {
   const [formGasto, setFormGasto] = useState({
     formato_pago: 'Formato para pago de gastos',
     fto: 'FTO-CJEALT-001',
@@ -93,7 +91,7 @@ function Formulario() {
               <Form.Group className='mb-3'>
                 <FloatingLabel
                   controlId='floatingSelect'
-                label='Fecha De Creación'
+                  label='Fecha De Creación'
                 >
                   <Form.Control
                     type='date'
@@ -144,7 +142,7 @@ function Formulario() {
                     <Form.Group className='mb-3'>
                       <FloatingLabel
                         controlId='floatingSelect'
-                       label='Fecha Facturación'
+                        label='Fecha Facturación'
                       >
                         <Form.Control
                           type='date'
@@ -157,7 +155,10 @@ function Formulario() {
                   </Col>
                   <Col md={{ span: 6, offset: 2 }}>
                     <Form.Group className='mb-3'>
-                      <FloatingLabel controlId='floatingSelect' label='Folio Factura'>
+                      <FloatingLabel
+                        controlId='floatingSelect'
+                        label='Folio Factura'
+                      >
                         <Form.Control
                           type='text'
                           name='folio'
@@ -174,10 +175,12 @@ function Formulario() {
                       <FloatingLabel
                         controlId='floatingSelect'
                         label='Descripción Factura'
+                     
                       >
                         <Form.Control
                           type='text'
-                          name='descripcion'  
+                          placeholder='Descripción Factura'
+                          name='descripcion'
                           onChange={handleInputChange}
                         />
                       </FloatingLabel>
@@ -194,26 +197,25 @@ function Formulario() {
                     <strong>Presupuesto</strong>
                   </Card.Header>
                   <Col className='mb-3' md={6}>
-                  <FloatingLabel
-                        controlId='floatingSelect'
-                        label='Compañia del Corporativo'
+                    <FloatingLabel
+                      controlId='floatingSelect'
+                      label='Compañia del Corporativo'
+                    >
+                      <Form.Select
+                        aria-label='Default select example'
+                        name='empresa_pagadora'
+                        value={formGasto.razon_social}
+                        onChange={handleInputChange}
                       >
-                        <Form.Select
-                          aria-label='Default select example'
-                          name='empresa_pagadora'
-                          value={formGasto.razon_social}
-                          onChange={handleInputChange}
-                        >
-                          <option disabled value=''>
-                            {' '}
-                          </option>
-                          <option value='Empresa 1'>Empresa 1</option>
-                          <option value='Empresa 2'>Empresa 2</option>
-                          <option value='Empresa 3'>Empresa 3</option>
-                          <option value='microsoft'>Empresa 4</option>
-                         
-                        </Form.Select>
-                      </FloatingLabel>
+                        <option disabled value=''>
+                          {' '}
+                        </option>
+                        <option value='Empresa 1'>Empresa 1</option>
+                        <option value='Empresa 2'>Empresa 2</option>
+                        <option value='Empresa 3'>Empresa 3</option>
+                        <option value='microsoft'>Empresa 4</option>
+                      </Form.Select>
+                    </FloatingLabel>
                   </Col>
                   <Col md={6}>
                     <Form.Group>
@@ -260,7 +262,6 @@ function Formulario() {
                           <option value='5'>Moviliaria</option>
 
                           <option value='6'>Papeleria</option>
-
                         </Form.Select>
                       </FloatingLabel>
                     </Form.Group>
@@ -291,13 +292,11 @@ function Formulario() {
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row>
-                
-                </Row>
+                <Row></Row>
               </Container>
             </Card>
-            </div>
-      <div className='grids'> 
+          </div>
+          <div className='grids'>
             <Container>
               <Row>
                 <Col lg>
@@ -332,18 +331,19 @@ function Formulario() {
                           <td>
                             {' '}
                             <Button variant='danger' size='sm'>
-                            Eliminar                            </Button>
+                              Eliminar{' '}
+                            </Button>
                           </td>
                         </tr>
-                 
                       </tbody>
                     </Table>
-                    <Row>
-                          <Col className='mb-2 ' md={{ span: 4, offset: 9}}>
+                    <Row>{/* acordarse darle responsive para tablet y este boton hace mas margen del lado derecho , acomodarlos diferentes a ambos */}
+                      <Col className='mb-2 ' md={{ span: 4, offset: 9 }}>
                         <Button variant='primary mt-2' size='sm'>
-                            Agregar linea                            </Button>
-                            </Col>
-                          </Row> 
+                          Agr. linea{' '}
+                        </Button>
+                      </Col>
+                    </Row>
                   </Card>
                 </Col>
               </Row>
@@ -376,17 +376,19 @@ function Formulario() {
                           <td>
                             {' '}
                             <Button variant='danger' size='sm'>
-                          Eliminar                              </Button>
+                              Eliminar{' '}
+                            </Button>
                           </td>
                         </tr>
                       </tbody>
                     </Table>
                     <Row>
-                          <Col className='mb-2 ' md={{ span: 4, offset: 9}}>
+                      <Col className='mb-2 ' md={{ span: 4, offset: 9}}>
                         <Button variant='primary mt-2' size='sm'>
-                            Agregar linea                            </Button>
-                            </Col>
-                          </Row> 
+                          Agr. linea{' '}
+                        </Button>
+                      </Col>
+                    </Row>
                   </Card>
                 </Col>
               </Row>
@@ -405,86 +407,83 @@ function Formulario() {
                 </Col>
               </Row>
             </Container>
-            </div>
-            <div className='cont-cards'>
-              <CardGroup>
-                <div className='btn'>
-                  <Card className='pb-3 mt-3 mb-3' style={{ width: '23rem' }}>
-                    <Card.Body>
-                      <Card.Title>Solicitante</Card.Title>
-                      <Form.Group className='pb-3 pt-3'>
-                        <FloatingLabel
-                          controlId='floatingSelect'
-                          label='Nombre(s) y Apellido(s)'
-                        >
-                          <Form.Control
-                            type='text'
-                            name='folio'
-                            placeholder='Folio Factura'
-                          />
-                        </FloatingLabel>
-                      </Form.Group>
-                      <Row>
-                      <Col md={{ span: 6, offset: 3 }}> 
-                      <Form.Group className='pb-3 pt-3'>
-                        <FloatingLabel
-                          controlId='floatingSelect'
-                          label='Fecha Creación'
-                        >
-                          <Form.Control
-                            type='date'
-                            name='fecha_aprob'
-                            placeholder='Fecha Aprobación'
-                          />
-                        </FloatingLabel>
-                      </Form.Group>
+          </div>
+          <div className='cont-cards'>
+            <CardGroup>
+              <div className='btn'>
+                <Card className='pb-3 mt-3 mb-3' style={{ width: '22rem' }}>
+                  <Card.Body>
+                    <Card.Title>Solicitante</Card.Title>
+                    <Form.Group className='pb-3 pt-3'>
+                      <FloatingLabel
+                        controlId='floatingSelect'
+                        label='Nombre(s) y Apellido(s)'
+                      >
+                        <Form.Control
+                          type='text'
+                          name='folio'
+                          placeholder='Folio Factura'
+                        />
+                      </FloatingLabel>
+                    </Form.Group>
+                    <Row>
+                      <Col md={{ span: 6, offset: 3 }}>
+                        <Form.Group className='pb-3 pt-3'>
+                          <FloatingLabel
+                            controlId='floatingSelect'
+                            label='Fecha Creación'
+                          >
+                            <Form.Control
+                              type='date'
+                              name='fecha_aprob'
+                              placeholder='Fecha Aprobación'
+                            />
+                          </FloatingLabel>
+                        </Form.Group>
                       </Col>
-                      </Row>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div className='btn'>
-                  <Card className='pb-3 mt-3 mb-3' style={{ width: '23rem' }}>
-                    <Card.Body>
-                      <Card.Title>Autoriza</Card.Title>
-                      <Form.Group className='pb-3 pt-3'>
-                        <FloatingLabel
-                          controlId='floatingSelect'
-                          label='Nombre(s) y Apellido(s)'
-                        >
-                      
-                          <Form.Control
-                            type='text'
-                            name='autoriza'
-                            placeholder='Autoriza'
-                            // onChange={handleInputChange}
-                          />
-                        </FloatingLabel>
-                      </Form.Group>
-                      <Row>
-                          <Col md={{ span: 6, offset: 3 }}>
-                      <Form.Group className='pb-3 pt-3'>
-                        <FloatingLabel
-                          controlId='floatingSelect'
-                          label='Fecha Creación'
-                        >
-                          <Form.Control
-                            type='date'
-                            name='fecha_aprob'
-                            placeholder='Fecha Aprobación'
-                            // onChange={handleInputChange}
-                          />
-                        </FloatingLabel>
-                      </Form.Group>
-                      </Col> 
-
-                      </Row>
-
-                    </Card.Body>
-                  </Card>
-                </div>
-              </CardGroup>
-            </div>
+                    </Row>
+                  </Card.Body>
+                </Card>
+              </div>
+              <div className='btn'>
+                <Card className='pb-3 mt-3 mb-3' style={{ width: '22rem' }}>
+                  <Card.Body>
+                    <Card.Title>Autoriza</Card.Title>
+                    <Form.Group className='pb-3 pt-3'>
+                      <FloatingLabel
+                        controlId='floatingSelect'
+                        label='Nombre(s) y Apellido(s)'
+                      >
+                        <Form.Control
+                          type='text'
+                          name='autoriza'
+                          placeholder='Autoriza'
+                          // onChange={handleInputChange}
+                        />
+                      </FloatingLabel>
+                    </Form.Group>
+                    <Row>
+                      <Col md={{ span: 6, offset: 3 }}>
+                        <Form.Group className='pb-3 pt-3'>
+                          <FloatingLabel
+                            controlId='floatingSelect'
+                            label='Fecha Creación'
+                          >
+                            <Form.Control
+                              type='date'
+                              name='fecha_aprob'
+                              placeholder='Fecha Aprobación'
+                              // onChange={handleInputChange}
+                            />
+                          </FloatingLabel>
+                        </Form.Group>
+                      </Col>
+                    </Row>
+                  </Card.Body>
+                </Card>
+              </div>
+            </CardGroup>
+          </div>
           <div className='btn-submit pb-1'>
             <div className='btn'>
               <Button variant='primary' size='sm'>
@@ -503,4 +502,4 @@ function Formulario() {
   );
 }
 
-export default Formulario;
+export default Fm_Gastos;

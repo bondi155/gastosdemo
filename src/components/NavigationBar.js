@@ -35,10 +35,10 @@ const soloLogo = require('../components/img/sololog.png');
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <LinkContainer to='/form'>
+              <LinkContainer to='/fmgastos'>
                 <Nav.Link>Gastos</Nav.Link>
               </LinkContainer>
-              <LinkContainer to='/form'>
+              <LinkContainer to='/fmingresos'>
                 <Nav.Link>Ingresos</Nav.Link>
               </LinkContainer>
               <LinkContainer to='/consulta'>
