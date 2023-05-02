@@ -1,0 +1,47 @@
+.agenda {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.agenda h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.agenda .form-group {
+  margin-bottom: 10px;
+}
+
+.agenda .table {
+  margin-top: 20px;
+}
+
+.agenda .editar {
+  background-color: orange;
+  border-color: orange;
+  color: white;
+}
+
+.agenda .eliminar {
+  background-color: red;
+  border-color: red;
+  color: white;
+}
+
+.agenda .editar:hover,
+.agenda .eliminar:hover {
+  opacity: 0.8;
+}
+
+.agenda .editar.mr-2 {
+  margin-right: 2px;
+}
+
+.agenda .eliminar.ml-2 {
+  margin-left: 2px;
+}
+
+.agenda .acciones {
+  margin-right: 0.5rem;
+}

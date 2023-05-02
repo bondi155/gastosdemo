@@ -7,7 +7,7 @@ import Consulta from './pages/Consulta';
 import FmGastos from './pages/FmGastos';
 import Dashboard from './dashboard/Dashboard';
 import FmIngresos from './pages/FmIngreso';
-
+import Agenda from './pages/Agenda';
 
 function App() {
 
@@ -23,8 +23,7 @@ function App() {
             <Route path='/fmgastos' element={<FmGastos />} />
             <Route path='/consulta' element={<Consulta />} />
             <Route path='/fmingresos' element={<FmIngresos />} />
-
-            
+            <Route path='/agenda' element={<Agenda/>} />            
           </Route> 
         </Routes>
       </BrowserRouter>

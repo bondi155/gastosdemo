@@ -1,457 +1,679 @@
 import React, { useState } from 'react';
 import { Form, Card, Table } from 'react-bootstrap';
 import { Row, Container, Col, Button, CardGroup } from 'react-bootstrap';
-import axios from 'axios';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import '../css/App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-function FmIngresos() {
-  const [formIng, setFormIng] = useState({
-    formato_ing: 'Formato para gestión de ingresos',
-    fto: 'FTO-CJEALT-001',
-    sector: 'contraloria',
-    razon_social: '',
-    fecha_elabora: '',
-    folio: '',
-    fecha_fac: '',
-    ceco: '',
-    empresa_pagadora: '',
-    concepto: '',
-    area: '',
-    tipo_partida: '',
-    articulo: '',
-    descripcion: '',
-    precioUni: '',
+
+function FmIngresos () {
+  const divStyle = {
+    backgroundColor: '#f58220b3',
+  };
+
+    //Linea de Factura form
+
+  const [todos, setTodos] = useState([]);
+
+  const [formData, setFormData] = useState({
+    cod_art: '',
+    desc_fac: '',
+    precioU: '',
+    cantidad: '',
     subtotal: '',
     descuento: '',
     iva: '',
     total: '',
   });
 
-  const sendFormIng = (event) => {
-    axios
-      .post('http://localhost:5005/postforming', {
-        formato_ing: formIng.formato_ing,
-        fto: formIng.fto,
-        sector: formIng.sector,
-        razon_social: formIng.razon_social,
-        fecha_elabora: formIng.fecha_elabora,
-        folio: formIng.folio,
-        fecha_fac: formIng.fecha_fac,
-        ceco: formIng.ceco,
-        empresa_pagadora: formIng.empresa_pagadora,
-        concepto: formIng.concepto,
-        area: formIng.area,
-        tipo_partida: formIng.tipo_partida,
-        articulo: formIng.articulo,
-        descripcion: formIng.descripcion,
-        precioUni: formIng.precioUni,
-        subtotal: formIng.subtotal,
-        descuento: formIng.descuento,
-        iva: formIng.iva,
-        total: formIng.total,
-      })
-      .then(() => {
-        alert(
-          'Formulario Cargado Correctamente , se genero su numero de Folio '
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    event.preventDefault();
-    event.target.reset();
-  };
-
-  const handleInputChange = (event) => {
-    console.log(event.target.value);
-    setFormIng({
-      ...formIng,
-      [event.target.name]: event.target.value,
+  const handleFormChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const divStyle = {
-    backgroundColor: '#f58220b3',
+
+  const handleAddToDo = (e) => {
+    e.preventDefault();
+    if (
+      !formData.cod_art ||
+      !formData.desc_fac ||
+      !formData.precioU ||
+      !formData.cantidad ||
+      !formData.subtotal ||
+      !formData.descuento ||
+      !formData.iva ||
+      !formData.total
+    )
+      return;
+    const newToDo = {
+      ...formData,
+      id: Date.now(),
+      isChecked: false,
+    };
+    setTodos([...todos, newToDo]);
+    setFormData({
+      cod_art: '',
+      desc_fac: '',
+      precioU: '',
+      cantidad: '',
+      subtotal: '',
+      descuento: '',
+      iva: '',
+      total: '',
+    });
+  };
+
+
+const handleDeleteTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const handleDeleteAll = () => {
+    setTodos([]);
+  };
+
+
+ 
+
+  //Detalle de pago form2 
+
+  const [todos2, setTodos2] = useState([]);
+
+  const [formData2, setFormData2] = useState({
+    forma_pago: '',
+    banco: '',
+    cuenta: '',
+    clabe: '',
+    importe: '',
+  });
+
+  const handleFormChange2 = (e) => {
+    setFormData2({
+      ...formData2,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+
+  const handleAddToDo2 = (e) => {
+    e.preventDefault();
+    if (
+      !formData2.forma_pago ||
+      !formData2.banco ||
+      !formData2.cuenta ||
+      !formData2.clabe ||
+      !formData2.importe
+    )
+      return;
+    const newToDo2 = {
+      ...formData2,
+      id: Date.now(),
+      isChecked2: false,
+    };
+    setTodos2([...todos2, newToDo2]);
+    setFormData2({
+      forma_pago: '',
+      banco: '',
+      cuenta: '',
+      clabe: '',
+      importe: '',
+    });
+  };
+
+  const handleDeleteTodo2 = (id) => {
+    setTodos2(todos2.filter((todo2) => todo2.id !== id));
+  };
+
+  const handleDeleteAll2 = () => {
+    setTodos2([]);
   };
 
   return (
-    <>
-      <div className='App'>
-        <Container className='mb-2'>
-          <Row className='pt-2'>
-            <Col md={2} className='mt-4'></Col>
-            <Col md={{ span: 4, offset: 2 }}>
-              <div className='titulo pt-3'>
-                <h1>Gastos</h1>
-              </div>
-            </Col>
-            <Col md={{ span: 2, offset: 2 }} className='mt-4'>
-              <Form.Group className='mb-3'>
-                <FloatingLabel
-                  controlId='floatingSelect'
-                  label='Fecha Creación'
-                >
-                  <Form.Control
-                    type='date'
-                    name='fecha_elabora'
-                    placeholder='Fecha Elaboración'
-                    onChange={handleInputChange}
-                  />
-                </FloatingLabel>
-              </Form.Group>
-            </Col>
-          </Row>
-        </Container>
-
-        <Form onSubmit={sendFormIng} className='mt-3' action='/home'>
+    <div className='App'>
+      <Container className='mb-2'>
+        <Row className='pt-2'>
+          <Col md={2} className='mt-4'></Col>
+          <Col md={{ span: 4, offset: 2 }}>
+            <div className='titulo pt-3'>
+              <h1>Ingresos</h1>
+            </div>
+          </Col>
+          <Col md={{ span: 2, offset: 2 }} className='mt-4'>
+            <Form.Group className='mb-3'>
+              <FloatingLabel
+                controlId='floatingSelect'
+                label='Fecha De Creación'
+              >
+                <Form.Control type='date' name='fecha_elabora' />
+              </FloatingLabel>
+            </Form.Group>
+          </Col>
+        </Row>
+      </Container>
+      <div className='scale'>
+        <Form className='mt-3' action='/home'>
           <div className='formulario'>
             <Card>
               <Container>
-                <Row>
-                  <Card.Header style={divStyle} className='mb-3'>
-                    <strong>Cliente / Pre factura</strong>
-                  </Card.Header>
-                  <Col md={12}>
-                    <Form.Group className='mb-3'>
-                      <FloatingLabel
-                        controlId='floatingSelect'
-                        label='Razon Social'
-                      >
-                        <Form.Select
-                          aria-label='Default select example'
-                          name='razon_social'
-                          value={formIng.razon_social}
-                          onChange={handleInputChange}
-                        >
-                          <option disabled value=''>
-                            {' '}
-                          </option>
-                          <option value='cfe'>Holyday Inn</option>
-                          <option value='office max'>Grupo Malazo</option>
-                          <option value='Uber'>Afianzadora Aserta</option>
-                          <option value='microsoft'>Magna Servicios</option>
-                          <option value='caminoreal'>Gas del Norte</option>
-                        </Form.Select>
-                      </FloatingLabel>
-                    </Form.Group>
-                  </Col>
-                </Row>
+                <Card.Header style={divStyle} className='mb-3 mt-1'>
+                  <strong>Cliente / Pre factura</strong>
+                </Card.Header>
                 <Row>
                   <Col md={4}>
                     <Form.Group className='mb-3'>
-                      <FloatingLabel
-                        controlId='floatingSelect'
-                        label='Fecha Facturación'
+                      <Form.Select
+                        aria-label='Default select example'
+                        name='razon_social'
                       >
-                        <Form.Control
-                          type='date'
-                          name='fecha_fac'
-                          placeholder='Fecha Facturación'
-                          onChange={handleInputChange}
-                        />
-                      </FloatingLabel>
+                        <option>
+                          Razon Social Proveedor
+                        </option>
+                        <option value='cfe'>CFE Centro</option>
+                        <option value='office max'>Office Max</option>
+                        <option value='Uber'>Uber</option>
+                        <option value='microsoft'>Microsoft</option>
+                        <option value='caminoreal'>Camino Real</option>
+                      </Form.Select>
                     </Form.Group>
                   </Col>
-                  <Col md={{ span: 6, offset: 2 }}>
+                  <Col md={4}>
                     <Form.Group className='mb-3'>
-                      <FloatingLabel controlId='floatingSelect' label='Folio'>
-                        <Form.Control
-                          type='text'
-                          name='folio'
-                          placeholder='Folio Factura'
-                          onChange={handleInputChange}
-                        />
-                      </FloatingLabel>
+                      <Form.Control
+                        type='date'
+                        name='fecha_fac'
+                        placeholder='Fecha Facturación'
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={4}>
+                    <Form.Group className='mb-3'>
+                      <Form.Control
+                        type='text'
+                        name='folio'
+                        placeholder='Folio Factura'
+                      />
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row>
                   <Col md={12}>
                     <Form.Group className='mb-3'>
-                      <FloatingLabel
-                        controlId='floatingSelect'
-                        label='Descripción'
-                      >
-                        <Form.Control
-                          type='text'
-                          name='descripcion'
-                          placeholder='Descripción'
-                          onChange={handleInputChange}
-                        />
-                      </FloatingLabel>
+                      <Form.Control
+                        type='text'
+                        placeholder='Descripción Factura'
+                        name='descripcion'
+                      />
                     </Form.Group>
                   </Col>
+                </Row>
+                <Card.Header style={divStyle} className='mb-3 mt-1'>
+                  <strong>Presupuesto</strong>
+                </Card.Header>
+                <Row>
+                  <Col className='mb-2' md={4}>
+                  <Form.Group className='mb-3'>
+                      <Form.Control
+                        type='text'
+                        placeholder='Compañia Facturadora'
+                        name='empresa_pagadora'
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={4}>
+                    <Form.Group>
+                      <Form.Select
+                        aria-label='Default select example'
+                        name='area'
+                      >
+                        <option>
+                          Area{' '}
+                        </option>
+                        <option value='finanza'>Finanzas</option>
+                        <option value='administracion'>Administración</option>
+                        <option value='rrhh'>RRHH</option>
+                        <option value='audito'>Auditoria</option>
+                        <option value='marketing'>Marketing</option>
+                      </Form.Select>
+                    </Form.Group>
+                  </Col>
+                  <Col md={4}>
+                    <Form.Group className='mb-3'>
+                      <Form.Select
+                        aria-label='Default select example'
+                        name='ceco'
+                      >
+                        <option > Centro de Costo </option>
+                        <option value='1'>Nómina</option>
+                        <option value='2'>Legal</option>
+                        <option value='3'>RRHH</option>
+                        <option value='4'>Contabilidad</option>
+                        <option value='5'>Contraloria</option>
+                        <option value='6'>SAC</option>
+                      </Form.Select>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                    <Row>
+                  <Col lg>
+                    <Card className='mt-3'>
+                      <Card.Header style={divStyle} className='mb-3 pt-3'>
+                        <strong>Lineas de la factura o recibo</strong>
+                      </Card.Header>
+                      <Table responsive striped bordered hover>
+                        <thead>
+                          <tr>
+                            <th>Cod.Articulo</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                            <th>Precio U.</th>
+                            <th>Dscto.</th>
+                            <th>Subtotal</th>
+                            <th>IVA</th>
+                            <th>Total</th>
+                            <th>
+                              {' '}
+                              <Button
+                                onClick={handleAddToDo}
+                                variant='primary mt-2'
+                                size='sm'
+                              >
+                                + linea{' '}
+                              </Button>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              {' '}
+                              <Form.Group className='mb-3'>
+                                <Form.Control
+                                  type='text'
+                                  name='cod_art'
+                                  onChange={handleFormChange}
+                                  value={formData.cod_art}
+                                />
+                              </Form.Group>
+                            </td>
+                            <td>
+                              {' '}
+                              <Form.Group className='mb-3'>
+                                <Form.Control
+                                  type='text'
+                                  name='desc_fac'
+                                  onChange={handleFormChange}
+                                  value={formData.desc_fac}
+                                />
+                              </Form.Group>
+                            </td>
+                            <td>
+                              {' '}
+                              <Form.Group className='mb-3'>
+                                <Form.Control
+                                  type='number'
+                                  name='cantidad'
+                                  onChange={handleFormChange}
+                                  value={formData.cantidad}
+                                />
+                              </Form.Group>
+                            </td>
+                            <td  width={"12%"}>
+                              {' '}
+                              <Form.Group className='mb-3'>
+                                
+                                <Form.Control
+                                  type='number'
+                                  name='precioU'
+                                  onChange={handleFormChange}
+                                  value={formData.precioU}
+                                />
+                              </Form.Group>
+                            </td>
+                            <td>
+                              {' '}
+                              <Form.Group className='mb-3'>
+                                <Form.Control
+                                  type='number'
+                                  name='descuento'
+                                  onChange={handleFormChange}
+                                  value={formData.descuento}
+                                />
+                              </Form.Group>
+                            </td>
+                            <td width={"12%"}>
+                              {' '}
+                              <Form.Group className='mb-3'>
+                                <Form.Control
+                                  type='number'
+                                  name='subtotal'
+                                  onChange={handleFormChange}
+                                  value={formData.subtotal}
+                                />
+                              </Form.Group>
+                            </td>
+                            <td width={"10%"}>
+                              {' '}
+                              <Form.Group className='mb-3'>
+                                <Form.Control
+                                  type='number'
+                                  name='iva'
+                                  onChange={handleFormChange}
+                                  value={formData.iva}
+                                />
+                              </Form.Group>
+                            </td>
+                            <td width={"14%"} >
+                              {' '}
+                              <Form.Group className='mb-3'>
+                                <Form.Control
+                                  type='number'
+                                  name='total'
+                                  onChange={handleFormChange}
+                                  value={formData.total}
+                                />
+                              </Form.Group>
+                            </td>
+                            <td width={"77px"}>
+                              {' '}
+                              <Button
+                                variant='danger'
+                                onClick={handleDeleteAll}
+                                size='sm'
+                              >
+                                x Todo {' '}
+                              </Button>
+                            </td>
+                          </tr>
+                          {todos.map((todo) => (
+                            <tr key={todo.id}>
+                              <td>{todo.cod_art}</td>
+                              <td>{todo.desc_fac}</td>
+                              <td>{todo.cantidad}</td>
+                              <td>${todo.precioU}</td>
+                              <td>${todo.descuento}</td>
+                              <td>${todo.subtotal}</td>
+                              <td>${todo.iva}</td>
+                              <td>${todo.total}</td>
+                              <td>
+                                {' '}
+                                <Button
+                                variant='danger'
+                                size='sm'
+                                onClick={() => handleDeleteTodo(todo.id)}
+                              >
+                                x{' '}
+                              </Button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                    </Card>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg>
+                    <Card className='mt-3'>
+                      <Card.Header style={divStyle} className='mb-3 pt-3'>
+                        <strong>Detalle del pago</strong>
+                      </Card.Header>
+                      <Table responsive striped bordered hover>
+                        <thead>
+                          <tr>
+                            <th>Forma de Pago</th>
+                            <th>Banco</th>
+                            <th>Cuenta</th>
+                            <th>Clabe</th>
+                            <th>Importe</th>
+                            <th>
+                              {' '}
+                              <Button
+                                variant='primary mt-2'
+                                onClick={handleAddToDo2}
+                                size='sm'
+                              >
+                                + linea{' '}
+                              </Button>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td width={"16%"}>
+                              {' '}
+
+                              <Form.Group className='mb-3'>
+                      <Form.Select
+                        aria-label='Default select example'
+                        name='forma_pago'
+                        value={formData2.forma_pago}
+                        onChange={handleFormChange2}
+                        required
+                      >
+                         <option>Elige uno</option>
+                        <option value='Deposito'>Deposito</option>
+                        <option value='Cheque'>Cheque</option>
+                        <option value='Efectivo'>Efectivo</option>
+                      </Form.Select>
+                    </Form.Group>
+                            </td>
+                            <td width={"16%"}>
+                            
+
+                            <Form.Group className='mb-3'>
+                      <Form.Select
+                        aria-label='Default select example'
+                        name='banco'
+                        required
+                        value={formData2.banco}
+                        onChange={handleFormChange2}
+                      >
+                         <option>Elige uno</option>
+                        <option value='BBVA'>BBVA</option>
+                        <option value='Banorte'>Banorte</option>
+                        <option value='Santander'>Santander</option>
+                        <option value='Hbsc'>HBSC</option>
+                        <option value='Azteca'>Ban.Azteca</option>
+
+                      </Form.Select>
+                    </Form.Group>
+
+
+                            </td>
+                            <td  width={"18%"}>
+                              <Form.Group className='mb-3'>
+                                <Form.Control
+                                required
+                                  type='number'
+                                  name='cuenta'
+                                  onChange={handleFormChange2}
+                                  value={formData2.cuenta}
+                                />
+                              </Form.Group>
+                            </td>
+                            <td>
+                              <Form.Group className='mb-3'>
+                                <Form.Control
+                                required
+                                  type='number'
+                                  name='clabe'
+                                  onChange={handleFormChange2}
+                                  value={formData2.clabe}
+                                />
+                              </Form.Group>
+                            </td>
+                            <td width={"18%"}>
+                              <Form.Group className='mb-3'>
+                                <Form.Control
+                                required
+                                  type='number'
+                                  name='importe'
+                                  onChange={handleFormChange2}
+                                  value={formData2.importe}
+                                />
+                              </Form.Group>
+                            </td>
+
+                            <td width={"77px"} >
+                              {' '}
+                              <Button
+                                variant='danger'
+                                onClick={handleDeleteAll2}
+                                size='sm'
+                              >
+                                x Todo {' '}
+                              </Button>
+                       
+                            </td>
+                          </tr>
+                          {todos2.map((todo2) => (
+                            <tr key={todo2.id}>
+                              <td>{todo2.forma_pago}</td>
+                              <td>{todo2.banco}</td>
+                              <td>{todo2.cuenta}</td>
+                              <td>{todo2.clabe}</td>
+                              <td>${todo2.importe}</td>
+                              <td>
+                                {' '}
+                                <Button
+                                variant='danger'
+                                onClick={() => handleDeleteTodo2(todo2.id)}
+                                size='sm'
+                              >
+                               <strong> X </strong>  {' '}
+                              </Button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                      <Row>
+                        <Col
+                          className='mb-2 '
+                          md={{ span: 4, offset: 9 }}
+                        ></Col>
+                      </Row>
+                    </Card>
+                  </Col>
+                </Row>
+
+                <Row className='mt-3 pb-3 pt-3'>
+                  <Col xs={12}>
+                    <FloatingLabel
+                      controlId='floatingTextarea2'
+                      label='Comentarios'
+                    >
+                      <Form.Control
+                        as='textarea'
+                        placeholder='Comentario'
+                        style={{ height: '100px' }}
+                      />
+                    </FloatingLabel>
+                  </Col>
+                </Row>
+                <Row>
+                  <div className='cont-cards'>
+                    <CardGroup>
+                      <div className='card-soli'>
+                        <Card
+                          className='pb-3 mt-3 mb-3'
+                          style={{ width: '20rem' }}
+                        >
+                          <Card.Body>
+                            <Card.Title>Solicitante</Card.Title>
+                            <Form.Group className='pb-3 pt-3'>
+                              <FloatingLabel
+                                controlId='floatingSelect'
+                                label='Nombre(s) y Apellido(s)'
+                              >
+                                <Form.Control
+                                  type='text'
+                                  name='folio'
+                                  placeholder='Folio Factura'
+                                />
+                              </FloatingLabel>
+                            </Form.Group>
+                            <Row>
+                              <Col md={{ span: 6, offset: 3 }}>
+                                <Form.Group className='pb-3 pt-3'>
+                                  <FloatingLabel
+                                    controlId='floatingSelect'
+                                    label='Fecha Creación'
+                                  >
+                                    <Form.Control
+                                      type='date'
+                                      name='fecha_aprob'
+                                      placeholder='Fecha Aprobación'
+                                    />
+                                  </FloatingLabel>
+                                </Form.Group>
+                              </Col>
+                            </Row>
+                          </Card.Body>
+                        </Card>
+                      </div>
+                      <div className='card-soli'>
+                        <Card
+                          className='pb-3 mt-3 mb-3'
+                          style={{ width: '20rem' }}
+                        >
+                          <Card.Body>
+                            <Card.Title>Autoriza</Card.Title>
+                            <Form.Group className='pb-3 pt-3'>
+                              <FloatingLabel
+                                controlId='floatingSelect'
+                                label='Nombre(s) y Apellido(s)'
+                              >
+                                <Form.Control
+                                  type='text'
+                                  name='autoriza'
+                                  placeholder='Autoriza'
+                                  // onChange={handleFormChange}
+                                />
+                              </FloatingLabel>
+                            </Form.Group>
+                            <Row>
+                              <Col md={{ span: 6, offset: 3 }}>
+                                <Form.Group className='pb-3 pt-3'>
+                                  <FloatingLabel
+                                    controlId='floatingSelect'
+                                    label='Fecha Creación'
+                                  >
+                                    <Form.Control
+                                      type='date'
+                                      name='fecha_aprob'
+                                      placeholder='Fecha Aprobación'
+                                      // onChange={handleFormChange}
+                                    />
+                                  </FloatingLabel>
+                                </Form.Group>
+                              </Col>
+                            </Row>
+                          </Card.Body>
+                        </Card>
+                      </div>
+                    </CardGroup>
+                  </div>
+                </Row>
+                <Row className='mb-3'>
+                  <div className='btn-submit'>
+                    <div className='btns'>
+                      <Button variant='primary'>Guardar</Button>
+                    </div>
+                    <div className='btns'>
+                      <Button variant='outline-primary'>Cancelar</Button>{' '}
+                    </div>
+                  </div>
                 </Row>
               </Container>
             </Card>
             <br></br>
-            <Card className='mt-1'>
-              <Container className='mb-3 '>
-                <Row>
-                  <Card.Header style={divStyle} className='mb-3'>
-                    <strong>Presupuesto</strong>
-                  </Card.Header>
-                  <Col md={12}>
-                    <Form.Group className='mb-3 mt-1'>
-                      <FloatingLabel
-                        controlId='floatingSelect'
-                        label='Compañia facturadora'
-                      >
-                        <Form.Control
-                          type='text'
-                          name='empresa_pagadora'
-                          placeholder='Compañia facturadora'
-                          onChange={handleInputChange}
-                        />
-                      </FloatingLabel>
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={6}>
-                    <Form.Group className='mb-3'>
-                      <FloatingLabel
-                        controlId='floatingSelect'
-                        label='Centro de Costo'
-                      >
-                        <Form.Select
-                          aria-label='Default select example'
-                          name='ceco'
-                          value={formIng.ceco}
-                          onChange={handleInputChange}
-                        >
-                          <option disabled value=''>
-                            {' '}
-                          </option>
-                          <option value='ceco1'>ceco 1</option>
-                          <option value='2'>*</option>
-                          <option value='3'>*</option>
-                        </Form.Select>
-                      </FloatingLabel>
-                    </Form.Group>
-                  </Col>
-                  <Col md={8}></Col>
-                </Row>
-                <Row>
-                  <Col md={8}>
-                    <Form.Group>
-                      <FloatingLabel controlId='floatingSelect' label='Area'>
-                        <Form.Select
-                          aria-label='Default select example'
-                          name='area'
-                          value={formIng.area}
-                          onChange={handleInputChange}
-                        >
-                          <option disabled value=''>
-                            {' '}
-                          </option>
-                          <option value='Area1'>Area1</option>
-                          <option value='2'>*</option>
-                          <option value='3'>*</option>
-                        </Form.Select>
-                      </FloatingLabel>
-                    </Form.Group>
-                  </Col>
-                </Row>
-              </Container>
-            </Card>
-          </div>
-          <div className='grids'>
-            <Container>
-              <Row>
-                <Col lg>
-                  <Card className='mt-3'>
-                    <Card.Header style={divStyle} className='mb-3 pt-3'>
-                      <strong>Lineas</strong>
-                    </Card.Header>
-                    <Table responsive striped bordered hover>
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Cod.Articulo</th>
-                          <th>Descripción</th>
-                          <th>Cantidad</th>
-                          <th>P.U</th>
-                          <th>Dscto.</th>
-                          <th>Subtotal</th>
-                          <th>IVA</th>
-                          <th>Total</th>
-                          <th>Acción</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                          <td>1</td>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                          <td>@mdo</td>
-                          <td>
-                            {' '}
-                            <Button variant='primary' size='sm'>
-                              Agregar
-                            </Button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </Card>
-                </Col>
-              </Row>
-              <Row>
-                <Col lg>
-                  <Card className='mt-3'>
-                    <Card.Header style={divStyle} className='mb-3 pt-3'>
-                      <strong>Pago</strong>
-                    </Card.Header>
-                    <Table responsive striped bordered hover>
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Tipo</th>
-                          <th>Banco</th>
-                          <th>Cuenta</th>
-                          <th>Clabe</th>
-                          <th>Importe.</th>
-                          <th>Acción</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                          <td>1</td>
-                          <td>Mark</td>
-                          <td>
-                            {' '}
-                            <Button variant='primary' size='sm'>
-                              Guardar
-                            </Button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </Card>
-                </Col>
-              </Row>
-              <Row className='mt-3 pb-3 pt-3'>
-                <Col xs={12}>
-                  <FloatingLabel
-                    controlId='floatingTextarea2'
-                    label='Comentarios'
-                  >
-                    <Form.Control
-                      as='textarea'
-                      placeholder='Comentario'
-                      style={{ height: '100px' }}
-                    />
-                  </FloatingLabel>
-                </Col>
-              </Row>
-            </Container>
-          </div>
-
-          <div className='cont-cards'>
-            <CardGroup>
-              <div className='btn'>
-                <Card className='pb-3 mt-3 mb-3' style={{ width: '20rem' }}>
-                  <Card.Body>
-                    <Card.Title>Solicitante</Card.Title>
-                    <Form.Group className='pb-3 pt-3'>
-                      <FloatingLabel
-                        controlId='floatingSelect'
-                        label='Solicitante'
-                      >
-                        <Form.Control
-                          type='text'
-                          name='folio'
-                          placeholder='Folio Factura'
-                          // onChange={handleInputChange}
-                        />
-                      </FloatingLabel>
-                    </Form.Group>
-                    <Row>
-                      <Col md={{ span: 6, offset: 3 }}>
-                        <Form.Group className='pb-3 pt-3'>
-                          <FloatingLabel
-                            controlId='floatingSelect'
-                            label='Fecha'
-                          >
-                            <Form.Control
-                              type='date'
-                              name='fecha_aprob'
-                              placeholder='Fecha'
-                              // onChange={handleInputChange}
-                            />
-                          </FloatingLabel>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
-              </div>
-              <div className='btn'>
-                <Card className='pb-3 mt-3 mb-3' style={{ width: '20rem' }}>
-                  <Card.Body>
-                    <Card.Title>Autoriza</Card.Title>
-                    <Form.Group className='pb-3 pt-3'>
-                      <FloatingLabel
-                        controlId='floatingSelect'
-                        label='Autoriza'
-                      >
-                        <Form.Control
-                          type='text'
-                          name='autoriza'
-                          placeholder='Autoriza'
-                          // onChange={handleInputChange}
-                        />
-                      </FloatingLabel>
-                    </Form.Group>
-                    <Row>
-                      <Col md={{ span: 6, offset: 3 }}>
-                        <Form.Group className='pb-3 pt-3'>
-                          <FloatingLabel
-                            controlId='floatingSelect'
-                            label='Fecha'
-                          >
-                            <Form.Control
-                              type='date'
-                              name='fecha_aprob'
-                              placeholder='Fecha'
-                              // onChange={handleInputChange}
-                            />
-                          </FloatingLabel>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
-              </div>
-            </CardGroup>
-          </div>
-          <div className='btn-submit pb-1'>
-            <div className='btn'>
-              <Button variant='primary' size='sm'>
-                Guardar
-              </Button>
-            </div>
-            <div className='btn'>
-              <Button variant='outline-primary' size='sm'>
-                Cancelar
-              </Button>{' '}
-            </div>
           </div>
         </Form>
       </div>
-    </>
+    </div>
   );
 }
 

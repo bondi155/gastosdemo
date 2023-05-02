@@ -1,28 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&display=swap');
+
 @media all and (max-width: 800px) {
   .formulario {
     padding-left: 2% !important;
     padding-right: 2% !important;
-  } 
-  .grids{
+  }
+
+  .grids {
     padding-left: 1% !important;
     padding-right: 1% !important;
   }
- 
+
+}
+
+
+h1 {
+  color: rgb(0, 0, 0);
+
 }
 
 .cont-cards {
-    display: flex;
-    justify-content: center;
-    
-    }
-  
-.App {
-  text-align: center;
-  background-color: #d3cdcd;
-  
+  display: flex;
+  justify-content: center;
 }
 
-.btn-submit{
+.App {
+  text-align: center;
+  background-color: #b1adad00;
+}
+
+
+.scale {
+  transform: scale(0.85);
+  /* Igual que: scaleX(0.7) scaleY(0.7) */
+  margin-top: -6rem;
+
+}
+
+.btn-submit {
   float: right;
   padding-right: 25.5%;
 }
@@ -31,54 +46,60 @@
   color: #61dafb;
 }
 
-.btn-add{
-  float:right;
-}
 
-.grids{
+.grids {
   padding-left: 20%;
   padding-right: 20%;
 }
 
-.formulario{
-  padding-left: 21%;
-  padding-right: 21%;
+.formulario {
+  padding-left: 15%;
+  padding-right: 15%;
   text-align: center;
+
 }
 
 .table-responsive {
   margin-inline: 0.3rem;
 }
-.login{
-background-image:  linear-gradient(rgba(255, 255, 255, 0.781), rgba(255,255,255,0.5)), url(../components/img/bg.jpg) ;
-background-size: cover;
-padding-top: 3rem;
-height: 100vh;
+
+.login {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.781), rgba(255, 255, 255, 0.5)), url(../components/img/bg.jpg);
+  background-size: cover;
+  padding-top: 3rem;
+  height: 100vh;
 }
 
-.titulo{ 
-  color:#605252d1;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  };
+.titulo {
+  color: #605252d1;
+  font-family: "Assistant", "Helvetica", "Arial", sans-serif;
+}
 
-  .form-select:focus{
+body {
+  font-family: 'Assistant', sans-serif;
+}
 
-    border-color: #f5822099 !important;
-  }
-  .css-1knaqv7-MuiButtonBase-root-MuiButton-root{
+.form-select:focus {
 
-    color: #000000e0 !important;
-  }
-  .css-1e6y48t-MuiButtonBase-root-MuiButton-root{ 
-    color: #000000e0 !important;
+  border-color: #f5822099 !important;
+}
 
-  }
+.css-1knaqv7-MuiButtonBase-root-MuiButton-root {
 
-  .css-gi7hi0-MuiTypography-root{
-        color: #000000e0 !important;
+  color: #000000e0 !important;
+}
 
-  }
-  /*
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  color: #000000e0 !important;
+
+}
+
+.css-gi7hi0-MuiTypography-root {
+  color: #000000e0 !important;
+
+}
+
+/*
 
   .btn-flat{
     color: #000000e0 !important;
@@ -94,31 +115,43 @@ height: 100vh;
     border-color:rgb(200, 200, 200) !important;
   }
 */
-  .form-select:focus{
-    border-color: #f5822099 !important;
-    box-shadow: 0 0 0 0.25rem #fd7e1487 !important;
-  }
+.form-select:focus {
+  border-color: #f5822099 !important;
+  box-shadow: 0 0 0 0.25rem #fd7e1487 !important;
+}
 
-  .form-control:focus {
-    box-shadow: 0 0 0 0.25rem #fd7e1487 !important;
-    border-color: #f5822099 !important;
-    
-  }
-
-  html {
-    padding:0;
-    margin:0;
-    background-color: #d3cdcd;
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem #fd7e1487 !important;
+  border-color: #f5822099 !important;
 
 }
 
-*{
+html {
+  padding: 0;
+  margin: 0;
+  background-color: #d3cdcd;
+
+}
+
+* {
   margin: 0px;
   padding: 0px;
 }
- #guardar{
+
+#guardar {
 
   margin-left: 2px;
 
- }
+}
 
+.App-form {
+  text-align: center;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.297), rgba(255, 255, 255, 0.5)), url(../components/img/bg-form.jpg);
+
+}
+
+.card-gastos {
+
+  background-color: #b1adad00;
+
+}

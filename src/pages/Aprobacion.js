@@ -9,7 +9,7 @@ import {
   CardGroup,
 } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-//import 'bootswatch/dist/darkly/bootstrap.min.css'; // Added this :boom:
+import 'bootswatch/dist/darkly/bootstrap.min.css'; // Added this :boom:
 
 
 //en vez de hacer esta pantalla podemos agregar las variables de usuario que entra y aprobador en el formulario principal.

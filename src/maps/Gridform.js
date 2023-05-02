@@ -9,7 +9,6 @@ import { esES as pickersBgBG } from '@mui/x-date-pickers/locales';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { GridToolbar } from '@mui/x-data-grid';
 
-
 const theme = createTheme(
   {
     palette: {
@@ -18,11 +17,11 @@ const theme = createTheme(
   },
   esES, // x-data-grid translations
   pickersBgBG, // x-date-pickers translations
-  coreBgBG, // core translations
+  coreBgBG // core translations
 );
 
 function Gridform() {
-/*
+  /*
 
     const columns = [
     { field: 'id', 
@@ -101,59 +100,64 @@ params:{
  }));
 */
 
+  const columns = [
+    { field: 'razonSocial', headerName: 'Razon Social', width: 130 },
+    
+    { field: 'importe', headerName: 'Importe', width: 130 },
+    {
+      field: 'codArt',
+      headerName: 'Cod. Articulo',
+      width: 160,
+    },
+  ];
 
-const columns = [
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    width: 160,
-  },
-];
-
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', fullName:'demo'  },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', fullName:'demo'  },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', fullName:'demo'  },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', fullName:'demo'  },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', fullName:'demo' },
-];
-
+  const rows = [
+    { id: 1, razonSocial: 'CFE', importe: '$999', codArt: '12314' },
+    { id: 2, razonSocial: 'papeleria', importe: '$456', codArt: '55678' },
+    { id: 3, razonSocial: 'uber', importe: '$5678', codArt: '5555' },
+    { id: 4, razonSocial: 'hotel', importe: '$11321', codArt: '2222' },
+    { id: 5, razonSocial: 'varios', importe: '$1460', codArt: '12345' },
+  ];
 
   return (
     <>
-         <div className='titulo pt-4 mb-3 text-break'> 
-        <h1 >Consulta</h1>
-        </div>
+      <div className='titulo pt-4 mb-3 text-break'>
+        <h1>Consulta</h1>
+      </div>
 
       <Box
-      
-      //cambiar background color del grid
-         sx={{   flexGrow: 1, height: 600, width:'100%', mt:5, pb:5, alignGrids: 'center', px:5}}>
-          <ThemeProvider theme={theme}>  
-      <DataGrid sx={{backgroundColor: 'white'}}
-      
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
+        //cambiar background color del grid
+        sx={{
+          flexGrow: 1,
+          height: 600,
+          width: '100%',
+          mt: 5,
+          pb: 5,
+          alignGrids: 'center',
+          px: 5,
         }}
-        slots={{
-          toolbar: GridToolbar,
-        }}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      />
-      </ThemeProvider>
-    </Box>
-
-           
+      >
+        <ThemeProvider theme={theme}>
+          <DataGrid
+            sx={{ backgroundColor: 'white' }}
+            rows={rows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
+              },
+            }}
+            slots={{
+              toolbar: GridToolbar,
+            }}
+            pageSizeOptions={[5]}
+            checkboxSelection
+            disableRowSelectionOnClick
+          />
+        </ThemeProvider>
+      </Box>
     </>
   );
 }
