@@ -3,10 +3,10 @@ import { Form, Card, Table } from 'react-bootstrap';
 import { Row, Container, Col, Button, CardGroup } from 'react-bootstrap';
 import axios from 'axios';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import '../css/App.css';
+import '../css/App2.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-function Fm_Gastos() {
+function Fm_Gastos2() {
   const [formGasto, setFormGasto] = useState({
     formato_pago: 'Formato para pago de gastos',
     fto: 'FTO-CJEALT-001',
@@ -295,8 +295,6 @@ function Fm_Gastos() {
                 <Row></Row>
               </Container>
             </Card>
-          </div>
-          <div className='grids'>
             <Container>
               <Row>
                 <Col lg>
@@ -411,7 +409,7 @@ function Fm_Gastos() {
           <div className='cont-cards'>
             <CardGroup>
               <div className='btn'>
-                <Card className='pb-3 mt-3 mb-3' style={{ width: '22rem' }}>
+                <Card className='pb-3 mt-3 mb-3' style={{ width: '30.7rem' }}>
                   <Card.Body>
                     <Card.Title>Solicitante</Card.Title>
                     <Form.Group className='pb-3 pt-3'>
@@ -446,7 +444,7 @@ function Fm_Gastos() {
                 </Card>
               </div>
               <div className='btn'>
-                <Card className='pb-3 mt-3 mb-3' style={{ width: '22rem' }}>
+                <Card className='pb-3 mt-3 mb-3' style={{ width: '30.7rem' }}>
                   <Card.Body>
                     <Card.Title>Autoriza</Card.Title>
                     <Form.Group className='pb-3 pt-3'>
@@ -503,4 +501,4 @@ function Fm_Gastos() {
   );
 }
 
-export default Fm_Gastos;
+export default Fm_Gastos2;

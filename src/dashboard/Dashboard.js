@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,21 +11,26 @@ import Link from '@mui/material/Link';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from '../maps/Orders';
+import ApexChart from '../maps/Apexchart';
+import ChatPanel from '../maps/ChartPanel';
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography
+      variant='body2'
+      color='text.secondary'
+      align='center'
+      {...props}
+    >
       {'Copyright © '}
-      <Link color="inherit" href="http://shambalaconsulting.com.mx/">
-       Shambala Consulting
+      <Link color='inherit' href='http://shambalaconsulting.com.mx/'>
+        Shambala Consulting
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
 }
-
-
 
 const mdTheme = createTheme();
 
@@ -40,7 +45,7 @@ function DashboardContent() {
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <Box
-          component="main"
+          component='main'
           sx={{
             backgroundColor: (theme) =>
               theme.palette.mode === 'light'
@@ -52,7 +57,7 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
@@ -61,10 +66,10 @@ function DashboardContent() {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: 380,
                   }}
                 >
-                  <Chart />
+                <ApexChart />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -81,6 +86,34 @@ function DashboardContent() {
                 </Paper>
               </Grid>
               {/* Recent Orders */}
+              <Grid item xs={12}>
+              <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 490,
+                  }}
+                >
+              <ChatPanel />
+                </Paper>
+
+              </Grid>
+            {/* Esto es un comentario}  <Grid item xs={12}>
+              <Paper
+                  sx={{
+                    p: 2,
+                    mt:2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                  }}
+                >
+              <Chart />
+              </Paper>
+
+              </Grid>
+                */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <Orders />

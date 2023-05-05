@@ -4,14 +4,16 @@ import { Row, Container, Col, Button, CardGroup } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import '../css/App.css';
 //import 'bootswatch/dist/cerulean/bootstrap.min.css'; // Added this :boom:
-
+import Presupuesto from '../maps/Presupuesto';
 
 function Fm_Gastos() {
   const divStyle = {
-    backgroundColor: '#f58220b3',
+    // backgroundColor: '#f7f7f7',
+    // border:'1px solid black;'
+    backgroundColor: 'transparent',
   };
 
-    //Linea de Factura form
+  //Linea de Factura form
 
   const [todos, setTodos] = useState([]);
 
@@ -32,7 +34,6 @@ function Fm_Gastos() {
       [e.target.name]: e.target.value,
     });
   };
-
 
   const handleAddToDo = (e) => {
     e.preventDefault();
@@ -65,8 +66,7 @@ function Fm_Gastos() {
     });
   };
 
-
-const handleDeleteTodo = (id) => {
+  const handleDeleteTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
@@ -74,7 +74,7 @@ const handleDeleteTodo = (id) => {
     setTodos([]);
   };
 
-  //Detalle de pago form2 
+  //Detalle de pago form2
 
   const [todos2, setTodos2] = useState([]);
 
@@ -126,8 +126,11 @@ const handleDeleteTodo = (id) => {
     setTodos2([]);
   };
 
+  const handleSubmit =()=>{
+    alert('Formulario enviado');
+  }
   return (
-    <div className='App-form'>
+    <div className='App'>
       <Container className='mb-2'>
         <Row className='pt-2'>
           <Col md={2} className='mt-4'></Col>
@@ -140,7 +143,8 @@ const handleDeleteTodo = (id) => {
             <Form.Group className='mb-3'>
               <FloatingLabel
                 controlId='floatingSelect'
-                label='Fecha De Creación'>
+                label='Fecha De Creación'
+              >
                 <Form.Control type='date' name='fecha_elabora' />
               </FloatingLabel>
             </Form.Group>
@@ -148,11 +152,11 @@ const handleDeleteTodo = (id) => {
         </Row>
       </Container>
       <div className='scale'>
-        <Form className='mt-3' action='/home'>
-          <div className='formulario'>
+        <div className='formulario'>
+          <Form className='mt-3' action='/home'>
             <Card>
-              <Container  className='card-gastos'>
-                <Card.Header style={divStyle} className='mb-3 mt-1'>
+              <Container className='card-gastos'>
+                <Card.Header style={divStyle} className='mb-2 mt-1'>
                   <strong>Proveedor/Factura</strong>
                 </Card.Header>
                 <Row>
@@ -162,9 +166,7 @@ const handleDeleteTodo = (id) => {
                         aria-label='Default select example'
                         name='razon_social'
                       >
-                        <option>
-                          Razon Social Proveedor
-                        </option>
+                        <option>Razon Social Proveedor</option>
                         <option value='cfe'>CFE Centro</option>
                         <option value='office max'>Office Max</option>
                         <option value='Uber'>Uber</option>
@@ -203,7 +205,7 @@ const handleDeleteTodo = (id) => {
                     </Form.Group>
                   </Col>
                 </Row>
-                <Card.Header style={divStyle} className='mb-3 mt-1'>
+                <Card.Header style={divStyle} className='mb-2 mt-1'>
                   <strong>Presupuesto</strong>
                 </Card.Header>
                 <Row>
@@ -213,9 +215,7 @@ const handleDeleteTodo = (id) => {
                       name='empresa_pagadora'
                       placeholder='Compañia del Corporativo'
                     >
-                      <option >
-                        Compañia del Corporativo
-                      </option>
+                      <option>Compañia del Corporativo</option>
                       <option value='Empresa 1'>Empresa 1</option>
                       <option value='Empresa 2'>Empresa 2</option>
                       <option value='Empresa 3'>Empresa 3</option>
@@ -228,9 +228,7 @@ const handleDeleteTodo = (id) => {
                         aria-label='Default select example'
                         name='area'
                       >
-                        <option>
-                          Area{' '}
-                        </option>
+                        <option>Area </option>
                         <option value='finanza'>Finanzas</option>
                         <option value='administracion'>Administración</option>
                         <option value='rrhh'>RRHH</option>
@@ -248,9 +246,7 @@ const handleDeleteTodo = (id) => {
                         name='tipo_partida'
                         placeholder='Tipo de partida Presupuestal'
                       >
-                        <option>
-                          Tipo de partida Presupuestal{' '}
-                        </option>
+                        <option>Tipo de partida Presupuestal </option>
                         <option value='1'>Viaticos</option>
                         <option value='2'>Anticipos</option>
                         <option value='3'>Servicios</option>
@@ -266,7 +262,7 @@ const handleDeleteTodo = (id) => {
                         aria-label='Default select example'
                         name='ceco'
                       >
-                        <option > Centro de Costo </option>
+                        <option> Centro de Costo </option>
                         <option value='1'>Nómina</option>
                         <option value='2'>Legal</option>
                         <option value='3'>RRHH</option>
@@ -277,13 +273,12 @@ const handleDeleteTodo = (id) => {
                     </Form.Group>
                   </Col>
                 </Row>
-
                 <Row>
                   <Col lg>
-                    <Card className='mt-3'>
-                      <Card.Header style={divStyle} className='mb-3 pt-3'>
-                        <strong>Lineas de la factura o recibo</strong>
-                      </Card.Header>
+                    <Card.Header className='mt-3 mb-2 pt-3'>
+                      <strong>Lineas de la factura o recibo</strong>
+                    </Card.Header>
+                    <Card>
                       <Table responsive striped bordered hover>
                         <thead>
                           <tr>
@@ -302,7 +297,7 @@ const handleDeleteTodo = (id) => {
                                 variant='primary mt-2'
                                 size='sm'
                               >
-                                + linea{' '}
+                                <strong> + </strong>
                               </Button>
                             </th>
                           </tr>
@@ -342,10 +337,9 @@ const handleDeleteTodo = (id) => {
                                 />
                               </Form.Group>
                             </td>
-                            <td  width={"12%"}>
+                            <td width={'12%'}>
                               {' '}
                               <Form.Group className='mb-3'>
-                                
                                 <Form.Control
                                   type='number'
                                   name='precioU'
@@ -365,7 +359,7 @@ const handleDeleteTodo = (id) => {
                                 />
                               </Form.Group>
                             </td>
-                            <td width={"12%"}>
+                            <td width={'12%'}>
                               {' '}
                               <Form.Group className='mb-3'>
                                 <Form.Control
@@ -376,7 +370,7 @@ const handleDeleteTodo = (id) => {
                                 />
                               </Form.Group>
                             </td>
-                            <td width={"10%"}>
+                            <td width={'10%'}>
                               {' '}
                               <Form.Group className='mb-3'>
                                 <Form.Control
@@ -387,7 +381,7 @@ const handleDeleteTodo = (id) => {
                                 />
                               </Form.Group>
                             </td>
-                            <td width={"14%"} >
+                            <td width={'14%'}>
                               {' '}
                               <Form.Group className='mb-3'>
                                 <Form.Control
@@ -398,36 +392,52 @@ const handleDeleteTodo = (id) => {
                                 />
                               </Form.Group>
                             </td>
-                            <td width={"77px"}>
+                            <td width={'100px'}>
                               {' '}
                               <Button
                                 variant='danger'
                                 onClick={handleDeleteAll}
                                 size='sm'
                               >
-                                x Todo {' '}
+                                <strong>X</strong>{' '}
                               </Button>
                             </td>
                           </tr>
                           {todos.map((todo) => (
                             <tr key={todo.id}>
-                              <td>{todo.cod_art}</td>
-                              <td>{todo.desc_fac}</td>
-                              <td>{todo.cantidad}</td>
-                              <td>${todo.precioU}</td>
-                              <td>${todo.descuento}</td>
-                              <td>${todo.subtotal}</td>
-                              <td>${todo.iva}</td>
-                              <td>${todo.total}</td>
+                              <td>
+                                <strong>{todo.cod_art}</strong>
+                              </td>
+                              <td>
+                                <strong>{todo.desc_fac}</strong>
+                              </td>
+                              <td>
+                                <strong>{todo.cantidad}</strong>
+                              </td>
+                              <td>
+                                <strong>${todo.precioU} </strong>
+                              </td>
+                              <td>
+                                <strong>${todo.descuento}</strong>
+                              </td>
+                              <td>
+                                <strong>${todo.subtotal}</strong>
+                              </td>
+                              <td>
+                                <strong>${todo.iva}</strong>
+                              </td>
+                              <td>
+                                <strong>${todo.total}</strong>
+                              </td>
                               <td>
                                 {' '}
                                 <Button
-                                variant='danger'
-                                size='sm'
-                                onClick={() => handleDeleteTodo(todo.id)}
-                              >
-                                x{' '}
-                              </Button>
+                                  variant='danger'
+                                  size='sm'
+                                  onClick={() => handleDeleteTodo(todo.id)}
+                                >
+                                  x{' '}
+                                </Button>
                               </td>
                             </tr>
                           ))}
@@ -438,10 +448,10 @@ const handleDeleteTodo = (id) => {
                 </Row>
                 <Row>
                   <Col lg>
-                    <Card className='mt-3'>
-                      <Card.Header style={divStyle} className='mb-3 pt-3'>
-                        <strong>Detalle del pago</strong>
-                      </Card.Header>
+                    <Card.Header style={divStyle} className=' mt-3 mb-2 pt-3'>
+                      <strong>Detalle del pago</strong>
+                    </Card.Header>
+                    <Card>
                       <Table responsive striped bordered hover>
                         <thead>
                           <tr>
@@ -457,58 +467,52 @@ const handleDeleteTodo = (id) => {
                                 onClick={handleAddToDo2}
                                 size='sm'
                               >
-                                + linea{' '}
+                                <strong>+</strong>{' '}
                               </Button>
                             </th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td width={"16%"}>
+                            <td width={'16%'}>
                               {' '}
-
                               <Form.Group className='mb-3'>
-                      <Form.Select
-                        aria-label='Default select example'
-                        name='forma_pago'
-                        value={formData2.forma_pago}
-                        onChange={handleFormChange2}
-                        required
-                      >
-                         <option>Elige uno</option>
-                        <option value='Deposito'>Deposito</option>
-                        <option value='Cheque'>Cheque</option>
-                        <option value='Efectivo'>Efectivo</option>
-                      </Form.Select>
-                    </Form.Group>
+                                <Form.Select
+                                  aria-label='Default select example'
+                                  name='forma_pago'
+                                  value={formData2.forma_pago}
+                                  onChange={handleFormChange2}
+                                  required
+                                >
+                                  <option>Elige uno</option>
+                                  <option value='Deposito'>Deposito</option>
+                                  <option value='Cheque'>Cheque</option>
+                                  <option value='Efectivo'>Efectivo</option>
+                                </Form.Select>
+                              </Form.Group>
                             </td>
-                            <td width={"16%"}>
-                            
-
-                            <Form.Group className='mb-3'>
-                      <Form.Select
-                        aria-label='Default select example'
-                        name='banco'
-                        required
-                        value={formData2.banco}
-                        onChange={handleFormChange2}
-                      >
-                         <option>Elige uno</option>
-                        <option value='BBVA'>BBVA</option>
-                        <option value='Banorte'>Banorte</option>
-                        <option value='Santander'>Santander</option>
-                        <option value='Hbsc'>HBSC</option>
-                        <option value='Azteca'>Ban.Azteca</option>
-
-                      </Form.Select>
-                    </Form.Group>
-
-
+                            <td width={'16%'}>
+                              <Form.Group className='mb-3'>
+                                <Form.Select
+                                  aria-label='Default select example'
+                                  name='banco'
+                                  required
+                                  value={formData2.banco}
+                                  onChange={handleFormChange2}
+                                >
+                                  <option>Elige uno</option>
+                                  <option value='BBVA'>BBVA</option>
+                                  <option value='Banorte'>Banorte</option>
+                                  <option value='Santander'>Santander</option>
+                                  <option value='Hbsc'>HBSC</option>
+                                  <option value='Azteca'>Ban.Azteca</option>
+                                </Form.Select>
+                              </Form.Group>
                             </td>
-                            <td  width={"18%"}>
+                            <td width={'18%'}>
                               <Form.Group className='mb-3'>
                                 <Form.Control
-                                required
+                                  required
                                   type='number'
                                   name='cuenta'
                                   onChange={handleFormChange2}
@@ -519,7 +523,7 @@ const handleDeleteTodo = (id) => {
                             <td>
                               <Form.Group className='mb-3'>
                                 <Form.Control
-                                required
+                                  required
                                   type='number'
                                   name='clabe'
                                   onChange={handleFormChange2}
@@ -527,10 +531,10 @@ const handleDeleteTodo = (id) => {
                                 />
                               </Form.Group>
                             </td>
-                            <td width={"18%"}>
+                            <td width={'18%'}>
                               <Form.Group className='mb-3'>
                                 <Form.Control
-                                required
+                                  required
                                   type='number'
                                   name='importe'
                                   onChange={handleFormChange2}
@@ -538,50 +542,51 @@ const handleDeleteTodo = (id) => {
                                 />
                               </Form.Group>
                             </td>
-
-                            <td width={"77px"} >
+                            <td width={'77px'}>
                               {' '}
                               <Button
                                 variant='danger'
                                 onClick={handleDeleteAll2}
                                 size='sm'
                               >
-                                x Todo {' '}
+                                <strong> X </strong>{' '}
                               </Button>
-                       
                             </td>
                           </tr>
                           {todos2.map((todo2) => (
                             <tr key={todo2.id}>
-                              <td>{todo2.forma_pago}</td>
-                              <td>{todo2.banco}</td>
-                              <td>{todo2.cuenta}</td>
-                              <td>{todo2.clabe}</td>
-                              <td>${todo2.importe}</td>
+                              <td>
+                                <strong>{todo2.forma_pago}</strong>
+                              </td>
+                              <td>
+                                <strong>{todo2.banco}</strong>
+                              </td>
+                              <td>
+                                <strong>{todo2.cuenta}</strong>
+                              </td>
+                              <td>
+                                <strong>{todo2.clabe}</strong>
+                              </td>
+                              <td>
+                                <strong>${todo2.importe}</strong>
+                              </td>
                               <td>
                                 {' '}
                                 <Button
-                                variant='danger'
-                                onClick={() => handleDeleteTodo2(todo2.id)}
-                                size='sm'
-                              >
-                               <strong> X </strong>  {' '}
-                              </Button>
+                                  variant='danger'
+                                  onClick={() => handleDeleteTodo2(todo2.id)}
+                                  size='sm'
+                                >
+                                  x{' '}
+                                </Button>
                               </td>
                             </tr>
                           ))}
                         </tbody>
                       </Table>
-                      <Row>
-                        <Col
-                          className='mb-2 '
-                          md={{ span: 4, offset: 9 }}
-                        ></Col>
-                      </Row>
                     </Card>
                   </Col>
                 </Row>
-
                 <Row className='mt-3 pb-3 pt-3'>
                   <Col xs={12}>
                     <FloatingLabel
@@ -596,13 +601,14 @@ const handleDeleteTodo = (id) => {
                     </FloatingLabel>
                   </Col>
                 </Row>
-                <Row>
+                <Row className='justify-content: center'>
                   <div className='cont-cards'>
                     <CardGroup>
                       <div className='btn'>
                         <Card
                           className='pb-3 mt-3 mb-3'
-                          style={{ width: '20rem' }}
+                          style={{ width: '30.7rem' }}
+                          id='card-soli'
                         >
                           <Card.Body>
                             <Card.Title>Solicitante</Card.Title>
@@ -640,7 +646,8 @@ const handleDeleteTodo = (id) => {
                       <div className='btn'>
                         <Card
                           className='pb-3 mt-3 mb-3'
-                          style={{ width: '20rem' }}
+                          style={{ width: '30.7rem' }}
+                          id='card-soli'
                         >
                           <Card.Body>
                             <Card.Title>Autoriza</Card.Title>
@@ -680,21 +687,29 @@ const handleDeleteTodo = (id) => {
                     </CardGroup>
                   </div>
                 </Row>
-                <Row className='mb-3'>
+                <Card className='justify-row-center'>
+                  {' '}
+                {/*   <PresuPie />*/}
+                 <Presupuesto />
+                </Card>
+                <Row className='mb-3 mt-3'>
                   <div className='btn-submit'>
                     <div className='btn'>
-                      <Button variant='primary'>Guardar</Button>
+                      <Button variant='primary'onClick={handleSubmit}>Guardar</Button>
                     </div>
                     <div className='btn'>
-                      <Button variant='outline-primary'>Cancelar</Button>{' '}
+                      <Button variant='btn btn-outline-secondary'>
+                        Cancelar
+                      </Button>{' '}
                     </div>
                   </div>
                 </Row>
               </Container>
             </Card>
+
             <br></br>
-          </div>
-        </Form>
+          </Form>
+        </div>
       </div>
     </div>
   );

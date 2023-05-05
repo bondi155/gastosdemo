@@ -4,7 +4,7 @@ import Gridform from '../maps/Gridform';
 
 function Consulta() {
   return (
-    <div className='App'> 
+    <div className='App-form'> 
         <Gridform />
         </div>
   );

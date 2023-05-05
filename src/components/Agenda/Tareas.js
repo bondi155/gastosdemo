@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { ListGroup, Button, Form } from "react-bootstrap";
-import classNames from "classnames/bind";
-import styles from '../../css/Tareas.module.css';
-const cx = classNames.bind(styles);
+import "../../css/Tareas.css";
 
 const Tareas = () => {
   const [tareas, setTareas] = useState([]);
@@ -28,16 +26,16 @@ const Tareas = () => {
   };
 
   return (
-    <div className={cx("tareas-container")}>
+    <div className="tareas-container">
       <h1 className="mb-5">Tareas</h1>
-      <div className={cx("mb-5 agregar-tarea")}>
+      <div className="mb-5 agregar-tarea">
         <Form.Control
           type="text"
           placeholder="Nueva tarea"
           value={nuevaTarea}
           onChange={(e) => setNuevaTarea(e.target.value)}
         />
-        <Button variant="primary" size="sm" className="mt-3" onClick={handleAgregarTarea}>
+        <Button style={{ float: "left" }} variant="primary" size="sm" className="mt-3" onClick={handleAgregarTarea}>
           Agregar
         </Button>
       </div>
@@ -46,6 +44,7 @@ const Tareas = () => {
           <ListGroup.Item key={index}>
             <Form.Control
               type="text"
+              disabled
               value={tarea}
               onChange={(e) => handleEditarTarea(index, e.target.value)}
             />
@@ -60,7 +59,6 @@ const Tareas = () => {
           </ListGroup.Item>
         ))}
       </ListGroup>
-   
     </div>
   );
 };
