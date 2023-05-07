@@ -14,8 +14,6 @@
 
 }
 
-
-
 .h1,
 .h2,
 .h3,
@@ -80,8 +78,8 @@ h6 {
 }
 
 .formulario {
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 12%;
+  padding-right: 12%;
   text-align: center;
 
 }
@@ -183,6 +181,25 @@ html {
   opacity: 0.;
   background-image: linear-gradient(rgba(255, 255, 255, 0.586), rgba(255, 255, 255, 0.458)), url(../components/img/bg-form2.jpg);
 
+}
+
+.my-nav-link {
+  color: #333;
+  text-decoration: none;
+}
+
+.my-nav-link:hover {
+  color: #666;
+  text-decoration: underline;
+}
+
+.custom-card {
+  height: 400px;
+  /* cambia este valor a lo que necesites */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /*Barra lateral*/

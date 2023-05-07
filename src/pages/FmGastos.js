@@ -3,7 +3,7 @@ import { Form, Card, Table } from 'react-bootstrap';
 import { Row, Container, Col, Button, CardGroup } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import '../css/App.css';
-//import 'bootswatch/dist/cerulean/bootstrap.min.css'; // Added this :boom:
+import 'bootswatch/dist/cerulean/bootstrap.min.css'; // Added this :boom:
 import Presupuesto from '../maps/Presupuesto';
 
 function Fm_Gastos() {
@@ -14,7 +14,6 @@ function Fm_Gastos() {
   };
 
   //Linea de Factura form
-
   const [todos, setTodos] = useState([]);
 
   const [formData, setFormData] = useState({
@@ -139,10 +138,9 @@ function Fm_Gastos() {
               <h1> Solicitud de gasto</h1>
             </div>
           </Col>
-          <Col md={{ span: 2, offset: 2 }} className='mt-4'>
+          <Col sm={2} lg={{ span: 2, offset: 2 }} md={4} className='mt-4'>
             <Form.Group className='mb-3'>
               <FloatingLabel
-                controlId='floatingSelect'
                 label='Fecha De Creación'
               >
                 <Form.Control type='date' name='fecha_elabora' />
@@ -150,17 +148,19 @@ function Fm_Gastos() {
             </Form.Group>
           </Col>
         </Row>
-      </Container>
+      </Container>             
+        <Container >
+        <Row>
+        <Col sm={12} md={12} lg={12}>
       <div className='scale'>
-        <div className='formulario'>
           <Form className='mt-3' action='/home'>
-            <Card>
-              <Container className='card-gastos'>
+            <Card className='card-gastos'>
+              <Container>
                 <Card.Header style={divStyle} className='mb-2 mt-1'>
                   <strong>Proveedor/Factura</strong>
                 </Card.Header>
-                <Row>
-                  <Col md={4}>
+                <Row className='mt-5'>
+                  <Col md={{ span: 4, offset:1 }}>
                     <Form.Group className='mb-3'>
                       <Form.Select
                         aria-label='Default select example'
@@ -175,7 +175,7 @@ function Fm_Gastos() {
                       </Form.Select>
                     </Form.Group>
                   </Col>
-                  <Col md={4}>
+                  <Col md={2}>
                     <Form.Group className='mb-3'>
                       <Form.Control
                         type='date'
@@ -195,7 +195,7 @@ function Fm_Gastos() {
                   </Col>
                 </Row>
                 <Row>
-                  <Col md={12}>
+                  <Col md={{ span: 6, offset: 3 }}>
                     <Form.Group className='mb-3'>
                       <Form.Control
                         type='text'
@@ -208,7 +208,7 @@ function Fm_Gastos() {
                 <Card.Header style={divStyle} className='mb-2 mt-1'>
                   <strong>Presupuesto</strong>
                 </Card.Header>
-                <Row>
+                <Row className='mt-5'>
                   <Col className='mb-3' md={{ span: 5, offset: 1 }}>
                     <Form.Select
                       aria-label='Default select example'
@@ -273,8 +273,8 @@ function Fm_Gastos() {
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row>
-                  <Col lg>
+                <Row className='mt-3 '>
+                  <Col >
                     <Card.Header className='mt-3 mb-2 pt-3'>
                       <strong>Lineas de la factura o recibo</strong>
                     </Card.Header>
@@ -446,7 +446,7 @@ function Fm_Gastos() {
                     </Card>
                   </Col>
                 </Row>
-                <Row>
+                <Row >
                   <Col lg>
                     <Card.Header style={divStyle} className=' mt-3 mb-2 pt-3'>
                       <strong>Detalle del pago</strong>
@@ -588,7 +588,7 @@ function Fm_Gastos() {
                   </Col>
                 </Row>
                 <Row className='mt-3 pb-3 pt-3'>
-                  <Col xs={12}>
+                  <Col md={{ span: 10, offset: 1}}>
                     <FloatingLabel
                       controlId='floatingTextarea2'
                       label='Comentarios'
@@ -687,11 +687,15 @@ function Fm_Gastos() {
                     </CardGroup>
                   </div>
                 </Row>
-                <Card className='justify-row-center'>
+                <Row>
+                <Col md={{ span: 8, offset: 2 }}> 
+                <Card style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} className='justify-row-center'>
                   {' '}
                 {/*   <PresuPie />*/}
                  <Presupuesto />
                 </Card>
+                </Col>
+                </Row>
                 <Row className='mb-3 mt-3'>
                   <div className='btn-submit'>
                     <div className='btn'>
@@ -704,13 +708,15 @@ function Fm_Gastos() {
                     </div>
                   </div>
                 </Row>
-              </Container>
+                </Container>
             </Card>
-
             <br></br>
           </Form>
-        </div>
       </div>
+      </Col>
+      </Row>
+      </Container>             
+
     </div>
   );
 }

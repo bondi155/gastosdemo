@@ -17,14 +17,21 @@ const ApexChart = () => {
     chart: {
       height: 350,
       type: 'area',
-    }, title: {
-      text: 'Gastos Totales por día (Últimos 10 días)',
-      align: 'center',
-      style: {
-        fontSize: '16px',
-        fontWeight: 'bold',
-        color: '#263238'
-      }
+      toolbar: {
+        show: true,
+        tools: {
+          zoom: true,
+          zoomin: true,
+          zoomout: true,
+          pan: true,
+          reset: true,
+          export: true,
+          download: true,
+          selection: true,
+          customIcons: []
+        },
+        offsetX: -10, // ajusta la posición horizontal de los iconos
+      },
     },
     dataLabels: {
       enabled: false,

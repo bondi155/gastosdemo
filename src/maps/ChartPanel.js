@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import ReactApexChart from 'react-apexcharts';
-import {Table} from 'react-bootstrap';
+import {Table, Col, Row, Container} from 'react-bootstrap';
+
 
 function randomizeArray(arg) {
     var array = arg.slice();
@@ -21,7 +22,7 @@ function randomizeArray(arg) {
     return array;
   }
   const sparklineData = [10, 15, 8, 5, 7, 12, 8, 10, 12, 7, 9, 5, 8, 10, 15, 12, 7, 9, 5, 8];
-function ChatPanel () {  
+function ChartPanel () {  
     const totalValueStyle = {
         paddingLeft: '25px',
         // ajusta este valor para cambiar el margen izquierdo
@@ -391,31 +392,33 @@ const [options8, setOptions8] = useState({
   }
 });
 return (
-    <div>
-      <div className="row">
-        <div className="col-md-4">
-          <div id="chart-spark1">
-            <ReactApexChart options={options} series={series} type="area" height={160} />
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div id="chart-spark2">
-            <ReactApexChart options={optionsSpark2} series={seriesSpark2} type="area" height={160} />
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div id="chart-spark3">
-            <ReactApexChart options={optionsSpark3} series={seriesSpark3} type="area" height={160} />
-          </div>
-        </div>
+  <div>
+  <Container className="mt-4" fluid>
+  <Row>
+    <Col md={4}>
+      <div id="chart-spark1">
+        <ReactApexChart options={options} series={series} type="area" height={160} />
       </div>
+    </Col>
+    <Col md={4}>
+      <div id="chart-spark2">
+        <ReactApexChart options={optionsSpark2} series={seriesSpark2} type="area" height={160} />
+      </div>
+    </Col>
+    <Col md={4}>
+      <div id="chart-spark3">
+        <ReactApexChart options={optionsSpark3} series={seriesSpark3} type="area" height={160} />
+      </div>
+    </Col>
+  </Row>
+</Container>
   
       <div className="row">
-      <Table  responsive>
+      <Table responsive>
     <thead>
       <tr>
         <th style={totalValueStyle}>Valor Total</th>
-        <th>Porcentaje de Ganancia</th>
+        <th>% Ganancia</th>
         <th>Ultimos 5 Días</th>
         <th>Volumen</th>
       </tr>
@@ -473,18 +476,19 @@ return (
         </td>
         <td>
           <div id="chart-8">
-            <ReactApexChart options={options8} series={series8} type="radialBar" height={40} width={40} />
+            <ReactApexChart options={options8} series={series8} type="radialBar" height={40} width={50} />
           </div>
         </td>
       </tr>
     </tbody>
   </Table>
+  
   </div>
 </div>
 )
     }
 
-    export default ChatPanel;
+    export default ChartPanel;
 
 
 

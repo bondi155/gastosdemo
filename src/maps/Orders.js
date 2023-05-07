@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Link from '@mui/material/Link';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Title from '../dashboard/Title';
+import { Table, NavLink, Card } from 'react-bootstrap';
 import axios from 'axios';
+import '../css/App.css';
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -55,6 +50,14 @@ const rows = [
     'VISA ⠀•••• 5919',
     212.79
   ),
+  createData(
+    5,
+    '15 Mar, 2023',
+    'Bruce willys',
+    'Boletos Avion',
+    'VISA ⠀•••• 5922',
+    1212.79
+  ),
 ];
 
 function preventDefault(event) {
@@ -87,34 +90,41 @@ useEffect(()  =>{
    }));
   */
   return (
-    <React.Fragment>
-      <Title>Gastos Recientes</Title>
-      <Table size='small'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Fecha</TableCell>
-            <TableCell>Nombre</TableCell>
-            <TableCell>Gasto</TableCell>
-            <TableCell>Metodo de Pago</TableCell>
-            <TableCell align='right'>Monto</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+    <>  
+<div className='App mt-3'> 
+<Card>
+<Card.Header><strong>Ultimos gastos cargados</strong></Card.Header>
+ 
+      <Table responsive striped bordered hover>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Nombre</th>
+            <th>Gasto</th>
+            <th>Método de Pago</th>
+            <th className="text-right">Monto</th>
+          </tr>
+        </thead>
+        <tbody>
           {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align='right'>{`$${row.amount}`}</TableCell>
-            </TableRow>
+            <tr key={row.id}>
+              <td>{row.date}</td>
+              <td>{row.name}</td>
+              <td>{row.shipTo}</td>
+              <td>{row.paymentMethod}</td>
+              <td className="text-right">{`$${row.amount}`}</td>
+            </tr>
           ))}
-        </TableBody>
+        </tbody>
+     
       </Table>
-      <Link color='primary' href='#' onClick={preventDefault} sx={{ mt: 3 }}>
-        Ver mas registros{' '}
-      </Link>
-    </React.Fragment>
-  );
+     
+<Card.Footer className="text-muted"><strong> <NavLink className=' my-nav-link' href="/pagina-de-destino">Ver más registros
+</NavLink> </strong></Card.Footer>
+
+</Card>
+      </div>
+ 
+      </>  );
 }
 
