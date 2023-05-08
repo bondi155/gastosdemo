@@ -8,9 +8,9 @@ import Presupuesto from '../maps/Presupuesto';
 
 function Fm_Gastos() {
   const divStyle = {
-    // backgroundColor: '#f7f7f7',
+     backgroundColor: '#f58220c2',
     // border:'1px solid black;'
-    backgroundColor: 'transparent',
+    //backgroundColor: 'transparent',
   };
 
   //Linea de Factura form
@@ -132,13 +132,12 @@ function Fm_Gastos() {
     <div className='App'>
       <Container className='mb-2'>
         <Row className='pt-2'>
-          <Col md={2} className='mt-4'></Col>
-          <Col md={{ span: 4, offset: 2 }}>
+          <Col md={{ span: 4, offset: 4 }}>
             <div className='titulo pt-3'>
               <h1> Solicitud de gasto</h1>
             </div>
           </Col>
-          <Col sm={2} lg={{ span: 2, offset: 2 }} md={4} className='mt-4'>
+          <Col sm={2} lg={{ span: 2, offset: 2 }} md={2} className='mt-4'>
             <Form.Group className='mb-3'>
               <FloatingLabel
                 label='Fecha De Creación'
@@ -150,15 +149,15 @@ function Fm_Gastos() {
         </Row>
       </Container>             
         <Container >
-        <Row>
-        <Col sm={12} md={12} lg={12}>
+        <Row className='justify-content-center' >
+        <Col sm={12} md={10} lg={10}>
       <div className='scale'>
           <Form className='mt-3' action='/home'>
-            <Card className='card-gastos'>
+            <Card>
               <Container>
-                <Card.Header style={divStyle} className='mb-2 mt-1'>
+                <h6 className='mt-3'> 
                   <strong>Proveedor/Factura</strong>
-                </Card.Header>
+                  </h6>
                 <Row className='mt-5'>
                   <Col md={{ span: 4, offset:1 }}>
                     <Form.Group className='mb-3'>
@@ -716,7 +715,6 @@ function Fm_Gastos() {
       </Col>
       </Row>
       </Container>             
-
     </div>
   );
 }

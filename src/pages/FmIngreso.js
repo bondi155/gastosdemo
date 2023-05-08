@@ -4,7 +4,6 @@ import { Row, Container, Col, Button, CardGroup } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import '../css/App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import Presupuesto from '../maps/Presupuesto';
 
 function FmIngresos() {
   const divStyle = {
@@ -124,19 +123,17 @@ function FmIngresos() {
   };
 
   return (
-    <div className='App'>
+     <div className='App'>
       <Container className='mb-2'>
         <Row className='pt-2'>
-          <Col md={2} className='mt-4'></Col>
-          <Col md={{ span: 4, offset: 2 }}>
+          <Col md={{ span: 4, offset: 4 }}>
             <div className='titulo pt-3'>
-              <h1>Ingresos</h1>
+              <h1> Ingresos </h1>
             </div>
           </Col>
-          <Col md={{ span: 2, offset: 2 }} className='mt-4'>
+          <Col sm={2} lg={{ span: 2, offset: 2 }} md={2} className='mt-4'>
             <Form.Group className='mb-3'>
               <FloatingLabel
-                controlId='floatingSelect'
                 label='Fecha De Creación'
               >
                 <Form.Control type='date' name='fecha_elabora' />
@@ -144,18 +141,17 @@ function FmIngresos() {
             </Form.Group>
           </Col>
         </Row>
-      </Container>
+      </Container>             
+        <Container >
+        <Row className='justify-content-center' >
+        <Col sm={12} md={12} lg={10}>
       <div className='scale'>
-      <div className='formulario'>
-        {/*<Presupuesto />*/}  
-        <Form className='mt-3' action='/home'>
-            <Card>
-              <Container className='card-gastos'>
-                <Card.Header style={divStyle} className='mb-2 mt-1'>
-                  <strong>Cliente/Pre factura</strong>
-                </Card.Header>
-                <Row>
-                  <Col md={4}>
+          <Form className='mt-3' action='/home'>
+            <Card className='card-gastos'>
+              <Container>
+                  <strong>Cliente - Pre factura</strong>
+                <Row className='mt-5'>
+                  <Col md={{ span: 4, offset:1 }}>
                     <Form.Group className='mb-3'>
                       <Form.Select
                         aria-label='Default select example'
@@ -170,7 +166,7 @@ function FmIngresos() {
                       </Form.Select>
                     </Form.Group>
                   </Col>
-                  <Col md={4}>
+                  <Col md={2}>
                     <Form.Group className='mb-3'>
                       <Form.Control
                         type='date'
@@ -190,7 +186,7 @@ function FmIngresos() {
                   </Col>
                 </Row>
                 <Row>
-                  <Col md={12}>
+                  <Col md={{ span: 6, offset: 3 }}>
                     <Form.Group className='mb-3'>
                       <Form.Control
                         type='text'
@@ -203,7 +199,7 @@ function FmIngresos() {
                 <Card.Header style={divStyle} className='mb-2 mt-1'>
                   <strong>Presupuesto</strong>
                 </Card.Header>
-                <Row>
+                <Row className='mt-5'>
                   <Col className='mb-2' md={4}>
                     <Form.Group className='mb-3'>
                       <Form.Control
@@ -245,12 +241,12 @@ function FmIngresos() {
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row>
-                  <Col lg>
-                      <Card.Header style={divStyle} className='mb-1 pt-3'>
-                        <strong>Lineas de la factura o recibo</strong>
-                      </Card.Header>
-                      <Card className='mt-3'>
+                <Row className='mt-3 '>
+                  <Col >
+                    <Card.Header className='mt-3 mb-2 pt-3'>
+                      <strong>Lineas de la factura o recibo</strong>
+                    </Card.Header>
+                    <Card>
                       <Table responsive striped bordered hover>
                         <thead>
                           <tr>
@@ -269,7 +265,7 @@ function FmIngresos() {
                                 variant='primary mt-2'
                                 size='sm'
                               >
-                               <strong> + </strong> {' '}
+                                <strong> + </strong>
                               </Button>
                             </th>
                           </tr>
@@ -364,27 +360,43 @@ function FmIngresos() {
                                 />
                               </Form.Group>
                             </td>
-                            <td width={'77px'}>
+                            <td width={'100px'}>
                               {' '}
                               <Button
                                 variant='danger'
                                 onClick={handleDeleteAll}
                                 size='sm'
                               >
-                             <strong>X</strong>  
+                                <strong>X</strong>{' '}
                               </Button>
                             </td>
                           </tr>
                           {todos.map((todo) => (
                             <tr key={todo.id}>
-                              <td><strong>{todo.cod_art}</strong></td>
-                              <td><strong>{todo.desc_fac}</strong></td>
-                              <td><strong>{todo.cantidad}</strong></td>
-                              <td><strong>${todo.precioU}</strong></td>
-                              <td><strong>${todo.descuento}</strong></td>
-                              <td><strong>${todo.subtotal}</strong></td>
-                              <td><strong>${todo.iva}</strong></td>
-                              <td><strong>${todo.total}</strong></td>
+                              <td>
+                                <strong>{todo.cod_art}</strong>
+                              </td>
+                              <td>
+                                <strong>{todo.desc_fac}</strong>
+                              </td>
+                              <td>
+                                <strong>{todo.cantidad}</strong>
+                              </td>
+                              <td>
+                                <strong>${todo.precioU} </strong>
+                              </td>
+                              <td>
+                                <strong>${todo.descuento}</strong>
+                              </td>
+                              <td>
+                                <strong>${todo.subtotal}</strong>
+                              </td>
+                              <td>
+                                <strong>${todo.iva}</strong>
+                              </td>
+                              <td>
+                                <strong>${todo.total}</strong>
+                              </td>
                               <td>
                                 {' '}
                                 <Button
@@ -402,12 +414,12 @@ function FmIngresos() {
                     </Card>
                   </Col>
                 </Row>
-                <Row>
+                <Row >
                   <Col lg>
-                      <Card.Header style={divStyle} className=' mt-3 mb-2 pt-3'>
-                        <strong>Detalle del pago</strong>
-                      </Card.Header>
-                      <Card className='mt-3'>
+                    <Card.Header style={divStyle} className=' mt-3 mb-2 pt-3'>
+                      <strong>Detalle del pago</strong>
+                    </Card.Header>
+                    <Card>
                       <Table responsive striped bordered hover>
                         <thead>
                           <tr>
@@ -423,7 +435,7 @@ function FmIngresos() {
                                 onClick={handleAddToDo2}
                                 size='sm'
                               >
-                               <strong>+</strong>
+                                <strong>+</strong>{' '}
                               </Button>
                             </th>
                           </tr>
@@ -498,7 +510,6 @@ function FmIngresos() {
                                 />
                               </Form.Group>
                             </td>
-
                             <td width={'77px'}>
                               {' '}
                               <Button
@@ -506,17 +517,27 @@ function FmIngresos() {
                                 onClick={handleDeleteAll2}
                                 size='sm'
                               >
-                             <strong>X</strong>  
+                                <strong> X </strong>{' '}
                               </Button>
                             </td>
                           </tr>
                           {todos2.map((todo2) => (
                             <tr key={todo2.id}>
-                              <td><strong>{todo2.forma_pago}</strong></td>
-                              <td><strong>{todo2.banco}</strong></td>
-                              <td><strong>{todo2.cuenta}</strong></td>
-                              <td><strong>{todo2.clabe}</strong></td>
-                              <td><strong>${todo2.importe}</strong></td>
+                              <td>
+                                <strong>{todo2.forma_pago}</strong>
+                              </td>
+                              <td>
+                                <strong>{todo2.banco}</strong>
+                              </td>
+                              <td>
+                                <strong>{todo2.cuenta}</strong>
+                              </td>
+                              <td>
+                                <strong>{todo2.clabe}</strong>
+                              </td>
+                              <td>
+                                <strong>${todo2.importe}</strong>
+                              </td>
                               <td>
                                 {' '}
                                 <Button
@@ -524,7 +545,7 @@ function FmIngresos() {
                                   onClick={() => handleDeleteTodo2(todo2.id)}
                                   size='sm'
                                 >
-                                   x {' '}
+                                  x{' '}
                                 </Button>
                               </td>
                             </tr>
@@ -535,7 +556,7 @@ function FmIngresos() {
                   </Col>
                 </Row>
                 <Row className='mt-3 pb-3 pt-3'>
-                  <Col xs={12}>
+                  <Col md={{ span: 10, offset: 1}}>
                     <FloatingLabel
                       controlId='floatingTextarea2'
                       label='Comentarios'
@@ -548,13 +569,13 @@ function FmIngresos() {
                     </FloatingLabel>
                   </Col>
                 </Row>
-                <Row>
+                <Row className='justify-content: center'>
                   <div className='cont-cards'>
                     <CardGroup>
                       <div className='btn'>
                         <Card
                           className='pb-3 mt-3 mb-3'
-                          style={{ width: '30.7rem' }}
+                          style={{ width: '29rem' }}
                           id='card-soli'
                         >
                           <Card.Body>
@@ -593,9 +614,8 @@ function FmIngresos() {
                       <div className='btn'>
                         <Card
                           className='pb-3 mt-3 mb-3'
-                          style={{ width: '30.7rem' }}
+                          style={{ width: '29rem' }}
                           id='card-soli'
-
                         >
                           <Card.Body>
                             <Card.Title>Autoriza</Card.Title>
@@ -635,22 +655,34 @@ function FmIngresos() {
                     </CardGroup>
                   </div>
                 </Row>
-                <Row className='mb-3'>
-                    <div className='btn-submit'>
-                      <div className='btn'>
-                        <Button variant='primary'>Guardar</Button>
-                      </div>
-                      <div className='btn'>
-                        <Button variant='btn btn-outline-secondary'>Cancelar</Button>
-                      </div>
-                    </div>
+                <Row>
+                <Col md={{ span: 8, offset: 2 }}> 
+                <Card style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }} className='justify-row-center'>
+                  {' '}
+                {/*   <PresuPie />*/}
+                </Card>
+                </Col>
                 </Row>
-              </Container>
+                <Row className='mb-3 mt-3'>
+                  <div className='btn-submit'>
+                    <div className='btn'>
+                      <Button variant='primary'>Guardar</Button>
+                    </div>
+                    <div className='btn'>
+                      <Button variant='btn btn-outline-secondary'>
+                        Cancelar
+                      </Button>{' '}
+                    </div>
+                  </div>
+                </Row>
+                </Container>
             </Card>
             <br></br>
-        </Form>
-        </div>
+          </Form>
       </div>
+      </Col>
+      </Row>
+      </Container>             
     </div>
   );
 }

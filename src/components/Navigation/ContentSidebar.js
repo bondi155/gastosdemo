@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, Form, Container, Button } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import '../css/App.css';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import '../../css/App.css'
 import Sidebar from './Sidebar';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -19,8 +16,7 @@ const styles = {
 };
 
 
-function NavigationBar({ children }) {
-  const soloLogo = require('../components/img/sololog.png');
+function ContentSidebar ({ children }) {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -82,4 +78,4 @@ function NavigationBar({ children }) {
   );
 }
 
-export default NavigationBar;
+export default ContentSidebar;

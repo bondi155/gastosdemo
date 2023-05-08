@@ -3,7 +3,7 @@ import { Form, Card, Table } from 'react-bootstrap';
 import { Row, Container, Col, Button, CardGroup } from 'react-bootstrap';
 import axios from 'axios';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import '../css/App2.css';
+import '../css/oldApp2.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 function Fm_Gastos2() {

@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui components
 import {
-  Stack,
-  IconButton,
-  InputAdornment,
   TextField,
   Button,
   Container,
@@ -14,7 +11,7 @@ import {
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid'; // Grid version 1
-import '../css/App.css';
+import '../../css/App.css';
 
 function Login() {
   const navigate = useNavigate();
@@ -44,12 +41,10 @@ function Login() {
     }
   };
 
-  const logo = require('../components/img/jealt_blanco.png');
+  const logo = require('../../components/img/jealt_blanco.png');
   const theme = createTheme();
-  const bg = require ('../components/img/bg.jpg');
 
   return (
- 
     <div className='login'>
       <ThemeProvider theme={theme}>
         <Container component='main' maxWidth='xs'>

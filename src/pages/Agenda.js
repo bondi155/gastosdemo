@@ -9,7 +9,7 @@ function Agenda() {
   return (
    <>
 <Card>
-      <Card.Body>
+      <Card.Body style={{ backgroundColor: '#f5f5f5' }}>
       <Tabs defaultActiveKey='agenda'>
       <Tab eventKey='agenda' title='Agenda'>
         <TelAgenda />

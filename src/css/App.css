@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@500&display=swap');
 
+/*
 @media all and (max-width: 820px) {
   .formulario {
     padding-left: 2% !important;
@@ -13,7 +14,7 @@
 
 
 }
-
+*/
 .h1,
 .h2,
 .h3,
@@ -45,10 +46,6 @@ h6 {
 }
 
 
-#card-soli {
-  max-width: 30.7rem;
-}
-
 .App {
   text-align: center;
   background-color: #b1adad00;
@@ -59,6 +56,7 @@ h6 {
   transform: scale(0.85);
   /* Igual que: scaleX(0.7) scaleY(0.7) */
   margin-top: -6rem;
+  margin-bottom: -6rem;
 
 }
 
@@ -71,6 +69,7 @@ h6 {
   color: #61dafb;
 }
 
+/*
 
 .grids {
   padding-left: 20%;
@@ -84,6 +83,7 @@ h6 {
 
 }
 
+*/
 .table-responsive {
   margin-inline: 0.3rem;
 }
@@ -125,7 +125,6 @@ body {
 }
 
 /*
-
   .btn-flat{
     color: #000000e0 !important;
     background-color: rgb(255, 255, 255) !important;
@@ -140,21 +139,21 @@ body {
     border-color:rgb(200, 200, 200) !important;
   }
 */
+
 .form-select:focus {
-  border-color: #24252999 !important;
-  box-shadow: 0 0 0 0.25rem #91939c99 !important;
+  border-color: #f5822099 !important;
+  box-shadow: 0 0 0 0.25rem #f5822099 !important;
 }
 
 .form-control:focus {
-  border-color: #24252999 !important;
-  box-shadow: 0 0 0 0.25rem #91939c99 !important;
+  border-color: #f5822099 !important;
+  box-shadow: 0 0 0 0.25rem #f5822099 !important;
 
 }
 
 html {
   padding: 0;
   margin: 0;
-  background-color: #d3cdcd;
 
 }
 
@@ -173,13 +172,6 @@ html {
   text-align: center;
   background-repeat: no-repeat;
   background-image: linear-gradient(rgba(255, 255, 255, 0.297), rgba(255, 255, 255, 0.5)), url(../components/img/bg-form2.jpg);
-
-}
-
-
-.card-gastos {
-  opacity: 0.;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.586), rgba(255, 255, 255, 0.458)), url(../components/img/bg-form2.jpg);
 
 }
 

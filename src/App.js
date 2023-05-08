@@ -2,7 +2,7 @@ import './css/App.css';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 //import Home from './pages/Home';
-import NavigationBar from './components/NavigationBar';
+import ContentSidebar from './components/Navigation/ContentSidebar';
 import Consulta from './pages/Consulta';
 import FmGastos from './pages/FmGastos';
 import Dashboard from './dashboard/Dashboard';
@@ -19,7 +19,7 @@ function App() {
         <Route path='/' element={<Navigate replace to='/login' />} />
           <Route path='/login' element={<Login/>} />
             <Route path='/*' element={<Navigate replace to='/login' />} />
-            <Route element={<NavigationBar />}>
+            <Route element={<ContentSidebar />}>
             <Route path='/inicio' element={<Dashboard/>} />
             <Route path='/fmgastos' element={<FmGastos />} />
             <Route path='/fmgastos2' element={<Fm_Gastos2 />} />
