@@ -225,4 +225,8 @@ html {
 }
 
 
-/* Sidebar.css */
+/* Axis.css */
+
+.hidden-button {
+  display: none;
+}

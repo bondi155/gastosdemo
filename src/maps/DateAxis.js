@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ApexCharts from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 import '../css/App.css';
 
 function DateAxis() {
-  const [selection, setSelection] = useState('all');
+  const [selection, setSelection] = useState(null);
 
   const options = {
     chart: {
@@ -218,78 +218,104 @@ function DateAxis() {
 
   
   const updateData = (timeline) => {
+    console.log(`Updating data for timeline: ${timeline}`);
     setSelection(timeline);
-
-    switch (timeline) {
-      case 'one_month':
-        ApexCharts.exec(
-          'area-datetime',
-          'zoomX',
-          new Date('15 Apr 2023').getTime(),
-          new Date('13 May 2023').getTime()
-        );
-
-        break;
-      case 'six_months':
-        ApexCharts.exec(
-          'area-datetime',
-          'zoomX',
-          new Date('13 Nov 2022').getTime(),
-          new Date('13 May 2023').getTime()
-        );
-        break;
-      case 'one_year':
-        ApexCharts.exec(
-          'area-datetime',
-          'zoomX',
-          new Date('13 May 2022').getTime(),
-          new Date('13 May 2023').getTime()
-        );
-        break;
-      case 'ytd':
-        ApexCharts.exec(
-          'area-datetime',
-          'zoomX',
-          new Date('9 Apr 2023').getTime(),
-          new Date('13 May 2023').getTime()
-        );
-        break;
-      case 'all':
-        ApexCharts.exec(
-          'area-datetime',
-          'zoomX',
-          new Date('01 Jan 2022').getTime(),
-          new Date('13 May 2023').getTime()
-        );
-        break;
-      default:
-    }
   };
+
+  useEffect(() => {
+    if (selection) {
+      switch (selection) {
+        case 'one_month':
+          ApexCharts.exec(
+            'area-datetime',
+            'zoomX',
+            new Date('15 Apr 2023').getTime(),
+            new Date('13 May 2023').getTime()
+          );
+          console.log(ApexCharts.exec('area-datetime', 'getOptions'));
+          break;
+        case 'six_months':
+          ApexCharts.exec(
+            'area-datetime',
+            'zoomX',
+            new Date('13 Nov 2022').getTime(),
+            new Date('13 May 2023').getTime()
+          );
+          break;
+        case 'one_year':
+          ApexCharts.exec(
+            'area-datetime',
+            'zoomX',
+            new Date('13 May 2022').getTime(),
+            new Date('13 May 2023').getTime()
+          );
+          break;
+        case 'ytd':
+          ApexCharts.exec(
+            'area-datetime',
+            'zoomX',
+            new Date(new Date().getFullYear(), 0, 1).getTime(),
+            new Date().getTime()
+          );
+          break;
+        case 'all':
+          ApexCharts.exec(
+            'area-datetime',
+            'zoomX',
+            new Date('01 Jan 2022').getTime(),
+            new Date('13 May 2023').getTime()
+          );
+          break;
+        default:
+      }
+    }
+  }, [selection]);
+
   return (
     <div id='chart'>
-      <div className='toolbar'>
+        
         <button
-          id='one_month'
-          onClick={() => updateData('one_month')}
-          className={selection === 'one_month' ? 'active' : ''}
+          id='hidden-button-1'
+      className='hidden-button'
+         
         >
           1M
         </button>
         &nbsp;
         <button
-          id='six_months'
-          onClick={() => updateData('six_months')}
-          className={selection === 'six_months' ? 'active' : ''}
+          id='hidden-button-2'
+          className='hidden-button'
         >
           6M
         </button>
         &nbsp;
         <button
-          id='one_year'
-          onClick={() => updateData('one_year')}
-          className={selection === 'one_year' ? 'active' : ''}
+         id='hidden-button-3'
+         className='hidden-button'
         >
           1Y
+        </button>
+        &nbsp;
+        <button
+         id='hidden-button-4'
+         className='hidden-button'
+        >
+          YTD
+        </button>
+        &nbsp;
+        <button
+         id='hidden-button-5'
+         className='hidden-button'
+        >
+          ALL
+        </button>
+      <div className='toolbar'>
+      <button
+          id='all'
+          onClick={() => updateData('all')}
+          className={selection === 'all' ? 'active' : ''}
+        >
+          Todo
         </button>
         &nbsp;
         <button
@@ -297,15 +323,30 @@ function DateAxis() {
           onClick={() => updateData('ytd')}
           className={selection === 'ytd' ? 'active' : ''}
         >
-          YTD
+          IDA
+        </button>
+        <button
+          id='one_year'
+          onClick={() => updateData('one_year')}
+          className={selection === 'one_year' ? 'active' : ''}
+        >
+          1 Año
         </button>
         &nbsp;
         <button
-          id='all'
-          onClick={() => updateData('all')}
-          className={selection === 'all' ? 'active' : ''}
+          id='one_month'
+          onClick={() => updateData('one_month')}
+          className={selection === 'one_month' ? 'active' : ''}
         >
-          ALL
+          1 Mes  
+        </button>
+        &nbsp;
+        <button
+          id='six_months'
+          onClick={() => updateData('six_months')}
+          className={selection === 'six_months' ? 'active' : ''}
+        >
+          6 Meses
         </button>
       </div>
 

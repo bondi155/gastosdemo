@@ -169,7 +169,7 @@ function Fm_Gastos() {
             <div className='scale'>
               <Form className='mt-3 ' action='/home'>
                 <Card>
-                  <Container>
+                  <Container >
                     <Tabs defaultActiveKey='proveedor'>
                       <Tab eventKey='proveedor' title='Proveedor'>
                       <Card.Header style={divStyle}>

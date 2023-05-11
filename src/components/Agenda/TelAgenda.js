@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Form, Table } from 'react-bootstrap';
-import classNames from 'classnames';
 import '../../css/Agenda.css';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit'
