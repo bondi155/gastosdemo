@@ -223,7 +223,6 @@ function DateAxis() {
   };
 
   useEffect(() => {
-    if (selection) {
       switch (selection) {
         case 'one_month':
           ApexCharts.exec(
@@ -268,7 +267,7 @@ function DateAxis() {
           break;
         default:
       }
-    }
+    
   }, [selection]);
 
   return (
