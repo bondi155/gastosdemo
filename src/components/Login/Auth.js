@@ -33,7 +33,7 @@ function Login() {
   const [islogged, SetIslogged] = useState(false);
 
   const handleClick = () => {
-    if ((login.usuario === 'jsalazar') & (login.contraseña === '123')) {
+    if ((login.usuario === 'jsalazar' || login.usuario === 'gortiz' ) & (login.contraseña === '123')) {
       setLogin(true);
       navigate('/inicio', { replace: true });
     } else {

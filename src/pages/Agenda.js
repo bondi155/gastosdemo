@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
 import TelAgenda from '../components/Agenda/TelAgenda';
 import Tareas from '../components/Agenda/Tareas';
-import { Card, Row, Col, Tab, Tabs } from "react-bootstrap";
+import { Container, Row, Col, Card, Tabs, Tab } from "react-bootstrap";
 
 function Agenda() {
  
 
   return (
    <>
-<Card>
-      <Card.Body style={{ backgroundColor: '#f5f5f5' }}>
-      <Tabs defaultActiveKey='agenda'>
-      <Tab eventKey='agenda' title='Agenda'>
-        <TelAgenda />
-      </Tab>
-      <Tab eventKey='tareas' title='Tareas'>
-        <Tareas />
-      </Tab>
-    </Tabs>
-      </Card.Body>
-    </Card>
+<Container className='mt-5'>
+        <Row className="justify-content-center">
+          <Col xs={12} sm={12} md={10} lg={10}>
+            <Card>
+              <Card.Body>
+                <Tabs defaultActiveKey="agenda">
+                  <Tab className='mt-2' eventKey="agenda" title="Agenda">
+                    <TelAgenda />
+                  </Tab>
+                  <Tab  className='mt-2' eventKey="tareas" title="Tareas">
+                    <Tareas />
+                  </Tab>
+                </Tabs>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
    </>
   );
 }

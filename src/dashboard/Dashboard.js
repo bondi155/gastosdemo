@@ -1,26 +1,22 @@
 import * as React from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Card, Col, Row, Container } from 'react-bootstrap';
+import { Card, Col, Row, Container, CardGroup } from 'react-bootstrap';
 import Deposits from './Deposits';
 import Orders from '../maps/Orders';
 import ApexChart from '../maps/Apexchart';
 import ChartPanel from '../maps/ChartPanel';
-
-const mdTheme = createTheme();
+import PresuPie from '../maps/PresuPie';
+import DateAxis from '../maps/DateAxis';
+import '../css/App.css';
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+
 
   return (
     <Container>
-      <Row className='mt-3'>
+      <Row className='mt-5'>
         <Col sm={8}>
           <Card>
           <Card.Header><strong>Gastos ùltimos 10 días</strong></Card.Header>
-
           {' '}
           <ApexChart />
           </Card>
@@ -34,36 +30,33 @@ function DashboardContent() {
          </Card.Text>
         <Deposits />
       </Card.Body>
-      <Card.Footer className="text-muted">2 days ago</Card.Footer>
+      <Card.Footer className="text-muted">  <small className="text-muted">Datos Actualizados...</small></Card.Footer>
     </Card>
         <Card>
           {' '}
           </Card>
         </Col>
       </Row>
-
       <Row className='mt-3'>
-        <Col sm={12} md={12} lg={6}>
+        <Col sm={12} md={12} lg={12}>
           <Card>
           <Card.Header><strong>Graficos Varios</strong></Card.Header>
           {' '}
           <ChartPanel />
-          <Card.Footer className="text-muted"><strong>Datos Actualizados</strong></Card.Footer>
-
+          <Card.Footer className="text-muted"><small className="text-muted">Datos Actualizados...</small></Card.Footer>
           </Card>
         </Col>
-        <Col sm={12} md={12} lg={6}>
+        </Row>
+        <Row className='mt-3'>
+        <Col sm={12} md={12} lg={12}>
         <Card>
-        <Card.Header><strong>Graficos Varios</strong></Card.Header>
-
+        <Card.Header><strong>Rangos de Gasto</strong></Card.Header>
           {' '}
-          <ChartPanel />
-          <Card.Footer className="text-muted"><strong>Datos Actualizados</strong></Card.Footer>
-
+          <DateAxis/>
+          <Card.Footer className="text-muted mt-5">  <small className="text-muted">Datos Actualizados...</small></Card.Footer>
           </Card>
-        </Col>
+        </Col>  
       </Row>
-
       <Row className='mt-3 justify-content-center'>
         <Col sm={12}>
           <Card>
@@ -71,7 +64,6 @@ function DashboardContent() {
           <Orders />
           </Card>
         </Col>
-     
       </Row>
     </Container>
   );
