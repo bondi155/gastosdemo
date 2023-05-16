@@ -9,6 +9,7 @@ import Dashboard from './dashboard/Dashboard';
 import FmIngresos from './pages/FmIngreso';
 import Agenda from './pages/Agenda';
 import Fm_Gastos2 from './pages/gastos2borrador';
+import OpenIA from './pages/OpenIA';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
             <Route path='/inicio' element={<Dashboard/>} />
             <Route path='/fmgastos' element={<FmGastos />} />
             <Route path='/fmgastos2' element={<Fm_Gastos2 />} />
+            <Route path='/openia' element={<OpenIA />} />
             <Route path='/consulta' element={<Consulta />} />
             <Route path='/fmingresos' element={<FmIngresos />} />
             <Route path='/agenda' element={<Agenda/>} />            

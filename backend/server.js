@@ -5,6 +5,8 @@ const cors = require("cors");
 const port = 5005;
 const getControllers = require('./controllers/Getfunc');
 const postControllers = require ('./controllers/Postfunc');
+const openaiController = require ('./controllers/Completions');
+const chatCompletions = require ('./controllers/ChatCompletions')
 const bodyParser = require("body-parser");
 
 app.use(cors());
@@ -12,6 +14,11 @@ app.use(express.json());
 //app.use(fileupload());
 app.use(express.static("files"));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.get('/chat', openaiController.getChatGPTResponse);
+
+app.get('/chatcompl', chatCompletions.ChatCompletions);
 
 
 app.listen(port, () => {
