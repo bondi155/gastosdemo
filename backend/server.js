@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/chat', openaiController.getChatGPTResponse);
 
-app.get('/chatcompl', chatCompletions.ChatCompletions);
+app.post('/chatcompl', chatCompletions.ChatCompletions);
 
 
 app.listen(port, () => {
