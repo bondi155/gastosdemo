@@ -139,6 +139,7 @@ function Fm_Gastos() {
   const handleSubmit = () => {
     alert('Formulario enviado');
   };
+  
   return (
     <div className='App'>
       <Container className='mb-2'>
