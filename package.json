@@ -30,6 +30,7 @@
     "react-apexcharts": "^1.4.0",
     "react-bootstrap": "^2.7.2",
     "react-burger-menu": "^3.0.9",
+    "react-chat-ui": "^0.4.0",
     "react-data-grid": "^7.0.0-beta.27",
     "react-dom": "^18.2.0",
     "react-equal-height": "^1.2.2",
