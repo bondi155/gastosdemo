@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Form } from 'react-bootstrap';
 import { Container, Button, Spinner } from 'react-bootstrap';
-
+import '../css/App.css';
 function OpenIA() {
   const [messages, setMessages] = useState([]);
   const [prompt, setPrompt] = useState('');
@@ -38,8 +38,17 @@ function OpenIA() {
   };
   return (
     <>
-      <Container className='mt-5'>
+      <Container className='chat mt-5'>
         <h1>Conversación con IA</h1>
+       
+        <div className='mt-3 messages-container'>
+          {messages.map((message, index) => (
+            <p key={index} className={`message ${message.sender}`}>
+              {message.sender}: {message.text}
+            </p>
+          ))}
+        </div>
+
         <Form.Group className='mb-3 mt-3'>
           <Form.Control
             as='textarea'
@@ -59,7 +68,7 @@ function OpenIA() {
               role='status'
               aria-hidden='true'
             />
-            Loading...
+           Cargando...
           </Button>
         ) : (
           <Button className='' onClick={handleClick}>
@@ -67,13 +76,6 @@ function OpenIA() {
           </Button>
         )}
 
-        <div className='mt-3'>
-          {messages.map((message, index) => (
-            <p key={index}>
-              {message.sender}: {message.text}
-            </p>
-          ))}
-        </div>
       </Container>
     </>
   );

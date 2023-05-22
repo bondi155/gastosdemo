@@ -53,8 +53,13 @@ async function ChatCompletions(req, res) {
       const responseGpt = await openai.createChatCompletion({
         model: 'gpt-3.5-turbo',
         messages: [
+          ...messages.map((message) => ({
+            role: message.sender === 'Usuario' ? 'user' : 'assistant',
+            content: message.text,
+          })),
           { role: 'system', content: 'You are a helpful assistant.' },
           { role: 'user', content: newPrompt },
+          
         ],
       });
 

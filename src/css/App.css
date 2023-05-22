@@ -230,3 +230,43 @@ html {
 .hidden-button {
   display: none;
 }
+
+
+/* Chat.css */
+
+.message {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  display: inline-block;
+  clear: both;
+}
+
+.Usuario {
+  float: left;
+  background-color: #2ea2e5;
+  color: white;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+}
+
+.IA {
+  float: right;
+  background-color: #f0f0f0;
+  color: black;
+  margin-right: 1rem;
+  margin-left: 1rem;
+
+}
+
+.messages-container {
+  width: 100%;
+  overflow: auto;
+  background-color: white;
+  border-radius: 15px;
+  max-height: 400px;
+  /* Ajusta este valor según tus necesidades */
+  overflow-y: auto;
+}
