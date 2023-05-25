@@ -249,7 +249,9 @@ html {
   margin-top: 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
-
+  clear: both;
+  height: auto;
+  overflow: auto;
 }
 
 .IA {
@@ -258,7 +260,9 @@ html {
   color: black;
   margin-right: 1rem;
   margin-left: 1rem;
-
+  clear: both;
+  height: auto;
+  overflow: auto;
 }
 
 .messages-container {
@@ -266,7 +270,7 @@ html {
   overflow: auto;
   background-color: white;
   border-radius: 15px;
-  max-height: 400px;
+  height: 500px;
   /* Ajusta este valor según tus necesidades */
   overflow-y: auto;
 }

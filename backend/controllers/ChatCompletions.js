@@ -2,23 +2,28 @@ const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
+const pool = require ('../config/postdbconfig');
 const axios = require('axios');
-
+//const natural = require('natural');
+//const tokenizer = new natural.WordTokenizer();
 const openai = new OpenAIApi(configuration);
 
 async function ChatCompletions(req, res) {
   const prompt = req.body.prompt;
   const messages = req.body.messages;
 
-  const gastosKeywords = [
-    'mis ultimos gastos',
-    'mis datos de gasto',
-    'mi tabla de gastos',
-    'mi informacion de gastos',
-  ];
-  const result = gastosKeywords.some((gastosKeywords) =>
+  //divido el prompt en palabras
+  /* const tokens = tokenizer.tokenize(prompt);
+
+   const gastosKeywords = [
+      'gastos',
+      'mis',
+    ' informacion',
+      'mi'
+    ];
+ const result = gastosKeywords.some((gastosKeywords) =>
     prompt.includes(gastosKeywords)
-  );
+  );*/
   let responseGastos = [];
 
   if (!prompt) {
@@ -27,96 +32,88 @@ async function ChatCompletions(req, res) {
       .status(400)
       .json({ error: 'No se proporcionó ninguna pregunta.' });
   }
+  //hacemos que busque el token destructurado del prompt
+  //const tokenResult = tokens.some(token => gastosKeywords.includes(token));
+  try {
+    const apiResponse = await axios.get(
+      'http://localhost:5005/consultaformgasto'
+    );
 
-  if (result) {
-    try {
-      const apiResponse = await axios.get(
-        'http://localhost:5005/consultaformgasto'
-      );
-      responseGastos = apiResponse.data;
+    const contentPostgre = `Por favor, genera una consulta SQL para PostgreSQL.No incluyas texto adicional nunca,
+       solo la consulta.Acuerdate tambien que current_date en PostgreSQL es clock_timestamp`;
 
-      const gastosMessage = `El usuario tiene los siguientes datos de gastos:
+    //convertir la respuesta de la base de datos en lenguaje natural ...esa sera la verdadera const gastosMessage...
+    responseGastos = apiResponse.data;
+
+    /*const gastosMessage = `El usuario tiene los siguientes datos de gastos:
         - Formato de pago: deposito
         - FTO: 12345
         - Sector: contadoria
         - Razón Social: proveedor 1
         - Folio: 123456
         - Total: 5567
-        - descripcion : silla
+        - descripcion : silla, mesa
         `;
-      //console.log(responseGastos); falta crear de resppnseGastsos la respuesta en lenguaje natural acordarse
+      console.log(responseGastos); falta crear de resppnseGastsos la respuesta en lenguaje natural acordarse
 
-      const newPrompt = `${prompt}\n${gastosMessage}`;
 
       console.log(gastosMessage);
+        */
 
-      const responseGpt = await openai.createChatCompletion({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          ...messages.map((message) => ({
-            role: message.sender === 'Usuario' ? 'user' : 'assistant',
-            content: message.text,
-          })),
-          { role: 'system', content: 'You are a helpful assistant.' },
-          { role: 'user', content: newPrompt },
-          
-        ],
-      });
+    const responseGpt = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      temperature: 0.2,
+      messages: [
+        ...messages.map((message) => ({
+          role: message.sender === 'Usuario' ? 'user' : 'assistant',
+          content: message.text,
+        })),
+        //{ role: 'system', content: tokenResult ? gastosMessage: contentPostgre },
+        { role: 'system', content: contentPostgre },
+        { role: 'user', content: prompt },
+      ],
+    });
 
-      const finalResponse = {
-        message: responseGpt.data.choices[0].message.content.trim(),
-        responseGastos: responseGastos,
-      };
+    const gptResponseContent =
+      responseGpt.data.choices[0].message.content.trim();
 
-      res.json(finalResponse);
-      console.log(
-        'la respuesta de chat es :',
-        responseGpt.data.choices[0].message
-      );
-    } catch (error) {
-      console.error(
-        'Error en la solicitud de la API interna de gastos:',
-        error
-      );
-    }
-  } else {
-    //llamada normal a api , hay que factorizar esto luego
-    try {
-      const response = await openai.createChatCompletion({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          ...messages.map((message) => ({
-            role: message.sender === 'Usuario' ? 'user' : 'assistant',
-            content: message.text,
-          })),
-          { role: 'system', content: 'You are a helpful assistant.' },
-          { role: 'user', content: prompt },
-          
-        ],
-      });
-      res.json({ message: response.data.choices[0].message.content.trim() });
-      console.log(
-        'la respuesta de chat es :',
-        response.data.choices[0].message
-      );
-    } catch (error) {
-      res.status(500).json({ error: error.toString() });
-      console.error(
-        'Error al llamar a la API de OpenAI:',
-        error.code,
-        error.response.status,
-        error.response.data
-      );
-      //    console.error('Error al llamar a la API de OpenAI:', error.code, error.response.status, error.response.data);
-    }
+
+    console.log(
+      'la respuesta de chat es :',
+      responseGpt.data.choices[0].message
+    );
+
+    //console.log(gptResponseContent);
+
+    const prueba ="SELECT * FROM form_gasto";
+
+    //haciendo select con la variable del response de chatGPT
+    const queryChat = prueba;
+
+pool.query(gptResponseContent, (err, result) => {
+    if(err) {
+        console.log(err);
+        res.status(500).json({error: "Hubo un error ejecutandose el query"});
+    } else {
+        console.log(result.rows);
+        const finalResponse = {
+            message: gptResponseContent,
+           results: result.rows,
+        };
+        res.json(finalResponse);
+    }});
+
+
+  
+  } catch (error) {
+    res.status(500).json({ error: error.toString() });
+    console.error(
+      'Error al llamar a la API de OpenAI:',
+      error.code,
+      error.response.status,
+      error.response.data
+    );
   }
-
-  //catch (error) {
-  //res.status(500).json({ error: error.toString() });
-  //console.error('Error al llamar a la API de OpenAI:', error.code, error.response.status, error.response.data);
-  //console.error('Error al llamar a la API de OpenAI:', error.code, error.response.status, error.response.data);
-
-  //}
 }
 
 module.exports = {

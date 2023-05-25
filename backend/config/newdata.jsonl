@@ -1,0 +1,4 @@
+{"source": "What is the total revenue?", "target": "SELECT SUM(revenue) FROM sales;"}
+{"source": "Give me the average age of employees.", "target": "SELECT AVG(age) FROM employees;"}
+{"source": "List all the customers in New York.", "target": "SELECT * FROM customers WHERE city = 'New York';"}
+{"source": "How many employees have a salary higher than 50000?", "target": "SELECT COUNT(*) FROM employees WHERE salary > 50000;"}

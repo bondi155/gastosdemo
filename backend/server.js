@@ -4,6 +4,7 @@ const cors = require("cors");
 //const fileupload = require("express-fileupload");
 const port = 5005;
 const getControllers = require('./controllers/Getfunc');
+const getControllersPostgre = require('./controllers/GetPostgres');
 const postControllers = require ('./controllers/Postfunc');
 const openaiController = require ('./controllers/Completions');
 const chatCompletions = require ('./controllers/ChatCompletions')
@@ -27,6 +28,8 @@ app.listen(port, () => {
   
   app.post("/postformgasto",postControllers.postFormulario__ );
 
-
-
   app.get("/consultaformgasto",getControllers.consultaFolio__ );
+
+  //app.get("/postgreselect",getControllersPostgre.getMerchants);
+
+  
