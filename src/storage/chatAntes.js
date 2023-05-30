@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Form } from 'react-bootstrap';
-import { Container, Button, Spinner, Col, Row } from 'react-bootstrap';
+import { Container, Button, Spinner } from 'react-bootstrap';
 import '../css/App.css';
 import { useRecoilState } from 'recoil';
 import { queryResults } from '../storage/GlobalStates';
@@ -46,20 +46,19 @@ function OpenIA() {
   };
 
   const messagesEndRef = useRef(null);
-  const chatGridRef = useRef(null);
-
-  //con esto ahcemos el scroll de los mensajes (se anula con el spinner y la renderizacion del grid)
+  //con esto ahcemos el scroll
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
 
+  
   return (
     <>
-      <Container className='chat mt-2'>
+      <Container className='chat mt-5'>
         <h1>Conversación con IA</h1>
-        <div className='mt-2 messages-container'>
+        <div className='mt-3 messages-container'>
           {messages.map((message, index) => (
             <div key={index} className={`message ${message.sender}`}>
               <p>
@@ -81,43 +80,57 @@ function OpenIA() {
             onChange={(e) => setPrompt(e.target.value)}
             placeholder='Ingrese Pregunta'
           />
-          <Button className='' type='submit'>
+          <Button className='mb-5' type='submit'>
             Preguntar
           </Button>
+          {/*
+          {loading ? (
+            <Button variant='primary' disabled>
+              <Spinner
+                as='span'
+                animation='grow'
+                size='sm'
+                role='status'
+                aria-hidden='true'
+              />
+              Cargando...
+            </Button>
+          ) : (
+            <Button className='' type='submit'>
+              Preguntar
+            </Button>
+          )}
+          */}
         </Form>
 
-        <Row className='mt-5 justify-content-center'>
-          <Col>
-            {loading ? (
-              <div
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  zIndex: 1000,
-                }}
-              >
-                <Spinner animation='border' role='status'>
-                  <span className='visually-hidden'>Loading...</span>
-                </Spinner>
+        {loading ? (
+          <div className='mt-5'>
+            <Spinner animation='border' role='status'>
+              <span className='visually-hidden'>Loading...</span>
+            </Spinner>
+          </div>
+        ) : (
+          queryRes && (
+            <div className=' mt-3 query-results'>             
+              <div >
+              <ChatGrid />
               </div>
-            ) : (
-              queryRes && (
-                <div className='mt-3 query-results'>
-                  <ChatGrid 
-                  />
-                </div>
-              )
-            )}
-          </Col>
-        </Row>
-        <div ref={chatGridRef} />
+            </div>
+          )
+        )}
+
+        {/*
+         {queryRes && (
+    <div className=" mt-3 query-results">
+        <h2>Resultado:</h2>
+        {queryRes.map((result, index) => (
+            <div className='mt-3' key={index}>
+                Aquí asumimos que result es un objeto con una propiedad "nombre" y una propiedad "valor". Modifícalo según tus necesidades 
+                <p>{result.id_cliente}: {result.punta_tipo}</p>
+            </div>
+        ))}
+    </div>
+)}*/}
       </Container>
     </>
   );

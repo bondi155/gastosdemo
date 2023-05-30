@@ -39,8 +39,8 @@ async function ChatCompletions(req, res) {
       'http://localhost:5005/consultaformgasto'
     );
 
-    const contentPostgre = `Por favor, genera una consulta SQL para PostgreSQL.No incluyas texto adicional nunca,
-       solo la consulta.Acuerdate tambien que current_date en PostgreSQL es clock_timestamp`;
+    const contentPostgre = `Por favor trabaja como un sql translate para PostgreSQL Nunca incluyas comentarios, solo la consulta.
+    Acuerdate que current_date en PostgreSQL es clock_timestamp y que necesito solo el query sin ninguna palabra ni comentario de mas por favor!`;
 
     //convertir la respuesta de la base de datos en lenguaje natural ...esa sera la verdadera const gastosMessage...
     responseGastos = apiResponse.data;
@@ -78,19 +78,22 @@ async function ChatCompletions(req, res) {
       responseGpt.data.choices[0].message.content.trim();
 
 
+ let sqlQuery = gptResponseContent.match(/(SELECT.*;)/is)[0];
+console.log("respuesta segmentada :",sqlQuery);
+
     console.log(
-      'la respuesta de chat es :',
+      'respuesta del chat :',
       responseGpt.data.choices[0].message
     );
 
     //console.log(gptResponseContent);
 
-    const prueba ="SELECT * FROM form_gasto";
+    //const prueba ="SELECT * FROM form_gasto";
 
     //haciendo select con la variable del response de chatGPT
-    const queryChat = prueba;
+    //const queryChat = prueba;
 
-pool.query(gptResponseContent, (err, result) => {
+pool.query(sqlQuery, (err, result) => {
     if(err) {
         console.log(err);
         res.status(500).json({error: "Hubo un error ejecutandose el query"});
