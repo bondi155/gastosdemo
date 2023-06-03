@@ -105,14 +105,11 @@ pool.query(sqlQuery, (err, result) => {
         };
         res.json(finalResponse);
     }});
-
-
   
   } catch (error) {
     res.status(500).json({ error: error.toString() });
     console.error(
       'Error al llamar a la API de OpenAI:',
-      error.code,
       error.response.status,
       error.response.data
     );

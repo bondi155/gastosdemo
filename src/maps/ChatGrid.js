@@ -1,4 +1,4 @@
-  import React from 'react';
+import React, { forwardRef } from 'react';
   import 'react-data-grid/lib/styles.css';
   import Box from '@mui/material/Box';
   import { esES as coreBgBG } from '@mui/material/locale';
@@ -19,7 +19,7 @@
     coreBgBG // core translations
   );
 
-  function ChatGrid () {
+  const ChatGrid = forwardRef((props, ref) => {
     //usamos recoil para la state global y asi no llamamos 2 veces a la api..
     const rows = useRecoilValue(queryResults);
     //le damos id al grid , ya que necesita si o si eso de index..
@@ -37,11 +37,13 @@
         field: property,
         headerName: property,
         width: 150,
+        align: typeof rowsWithIds[0][property] === 'number' ? 'right' : 'left', // Alinear columnas numéricas a la derecha
       }));
     }
   
+    
     return (
-      <>
+      <div  ref={ref}> 
         <h2>Resultado:</h2>
         <Box
           //cambiar background color del grid
@@ -57,6 +59,7 @@
         >
           <ThemeProvider theme={theme}>
             <DataGrid
+            
               sx={{ backgroundColor: 'white' }}
               rows={rowsWithIds}
               columns={columns}
@@ -64,22 +67,24 @@
               initialState={{
                 pagination: {
                   paginationModel: {
-                    pageSize: 100,
+                    pageSize: 5,
                   },
                 },
               }}
               slots={{
                 toolbar: GridToolbar,
               }}
+              //desactivamos el print 
+              slotProps={{ toolbar: { printOptions: { disableToolbarButton: true } } }}
               pageSizeOptions={[5]}
               checkboxSelection
               disableRowSelectionOnClick
             />
           </ThemeProvider>
         </Box>
-      </>
-    );
-  }
+        </div>
+            );
+  });
 
   //el props puedo usarlo para cuando pase el componente , le de otro valor , por ejemplo el de otro mapeo...
 

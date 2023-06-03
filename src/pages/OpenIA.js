@@ -6,43 +6,67 @@ import '../css/App.css';
 import { useRecoilState } from 'recoil';
 import { queryResults } from '../storage/GlobalStates';
 import ChatGrid from '../maps/ChatGrid';
+import 'bootswatch/dist/cerulean/bootstrap.min.css'; // Added this :boom:
 
 function OpenIA() {
   const [messages, setMessages] = useState([]);
   const [prompt, setPrompt] = useState('');
   const [queryRes, setQueryRes] = useRecoilState(queryResults);
   const [loading, setLoading] = useState(false);
+  let retryCount = 0;
 
-  const handleClick = (event) => {
+  const handleClick = async (e) => {
+    e.preventDefault();
     setLoading(true);
-    // Agregar el mensaje del usuario al array de mensajes anteriormente enviado +
+
+    // Agregar el mensaje del usuario al array de mensajes anteriormente enviado
     setMessages((prevMessages) => [
       ...prevMessages,
       { text: prompt, sender: 'Usuario' },
     ]);
-    axios
-      .post('http://localhost:5005/chatcompl', {
+
+    try {
+      const response = await axios.post('http://localhost:5005/chatcompl', {
         prompt,
         messages,
-      })
-      .then((response) => {
-        // Agregar el mensaje de la IA al array de mensajes (mensaje que manda chatgpt mapeado)
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: response.data.message, sender: 'IA' },
-        ]);
-        setQueryRes(response.data.results); // Aquí actualizamos el estado con los resultados de la consulta
-        //  console.log(response.data.results);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
       });
-    event.preventDefault();
 
-    // Limpiar el prompt
-    setPrompt('');
+      // Agregar el mensaje de la IA al array de mensajes (mensaje que manda chatgpt mapeado)
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: response.data.message, sender: 'IA' },
+      ]);
+      setQueryRes(response.data.results); // Aquí actualizamos el estado con los resultados de la consulta
+      setLoading(false);
+    } catch (error) {
+      
+      console.log(error);
+      setLoading(false);
+
+     if (error.response && error.response.data && error.response.data.error) {
+
+
+    if (error.response.data.error === 'Error de conexion con OpenAI') {
+      alert('Hubo un problema de comunicaciòn. Por favor, intenta nuevamente. Si el problema persiste, comunicarse con soporte.');
+
+
+    } if (error.response.data.error === 'Hubo un error ejecutandose el query') {
+      window.confirm('La consulta no se generó como se esperaba. ¿Deseas intentarlo de nuevo?')
+        retryCount++;
+        if (retryCount <= 2) {
+          setTimeout(() => {
+          handleClick(e, prompt);
+          }, 2000);
+          console.log(retryCount);
+        } else {
+          alert('Por favor, reformulè su pregunta.');
+          retryCount = 0;
+          console.log(retryCount);
+        }
+      
+    }
+  }
+}
   };
 
   const messagesEndRef = useRef(null);
@@ -55,6 +79,21 @@ function OpenIA() {
     }
   }, [messages]);
 
+  const scrollToComponent = () => {
+    chatGridRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (chatGridRef.current) {
+        chatGridRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 400); // Aquí estamos esperando 4 segundos (4000 milisegundos)
+
+    // Esta función de limpieza se ejecuta cuando el componente se desmonta o antes de que se ejecute el próximo efecto.
+    // Limpiamos el timer para evitar que se ejecute si el componente se desmonta antes de que pasen los 4 segundos.
+    return () => clearTimeout(timer);
+  }, [queryRes]);
   return (
     <>
       <Container className='chat mt-2'>
@@ -81,11 +120,20 @@ function OpenIA() {
             onChange={(e) => setPrompt(e.target.value)}
             placeholder='Ingrese Pregunta'
           />
+
           <Button className='' type='submit'>
             Preguntar
           </Button>
+          {queryRes && (
+            <Button
+              className='btn btn-success'
+              style={{ float: 'right' }}
+              onClick={scrollToComponent}
+            >
+              Ir a respuesta
+            </Button>
+          )}
         </Form>
-
         <Row className='mt-5 justify-content-center'>
           <Col>
             {loading ? (
@@ -110,14 +158,12 @@ function OpenIA() {
             ) : (
               queryRes && (
                 <div className='mt-3 query-results'>
-                  <ChatGrid 
-                  />
+                  <ChatGrid ref={chatGridRef} />
                 </div>
               )
             )}
           </Col>
         </Row>
-        <div ref={chatGridRef} />
       </Container>
     </>
   );

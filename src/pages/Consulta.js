@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import 'react-data-grid/lib/styles.css';
 import Gridform from '../maps/Gridform';
 
