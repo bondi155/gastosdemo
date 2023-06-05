@@ -7,7 +7,7 @@ import { useRecoilState } from 'recoil';
 import { queryResults } from '../storage/GlobalStates';
 import ChatGrid from '../maps/ChatGrid';
 import 'bootswatch/dist/cerulean/bootstrap.min.css'; // Added this :boom:
-
+import Swal from 'sweetalert2'
 function OpenIA() {
   const [messages, setMessages] = useState([]);
   const [prompt, setPrompt] = useState('');
@@ -15,6 +15,7 @@ function OpenIA() {
   const [loading, setLoading] = useState(false);
   let retryCount = 0;
 
+  
   const handleClick = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -39,31 +40,50 @@ function OpenIA() {
       setQueryRes(response.data.results); // Aquí actualizamos el estado con los resultados de la consulta
       setLoading(false);
     } catch (error) {
-      
-      console.log(error);
       setLoading(false);
-
+      console.log(error.response.data);
      if (error.response && error.response.data && error.response.data.error) {
-
-
-    if (error.response.data.error === 'Error de conexion con OpenAI') {
-      alert('Hubo un problema de comunicaciòn. Por favor, intenta nuevamente. Si el problema persiste, comunicarse con soporte.');
+    if ( error.response.status === 500) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Hubo un problema de comunicaciòn. Por favor, intenta nuevamente. Si el problema persiste, comunicarse con soporte.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      })
+      
 
 
     } if (error.response.data.error === 'Hubo un error ejecutandose el query') {
-      window.confirm('La consulta no se generó como se esperaba. ¿Deseas intentarlo de nuevo?')
-        retryCount++;
-        if (retryCount <= 2) {
-          setTimeout(() => {
-          handleClick(e, prompt);
-          }, 2000);
-          console.log(retryCount);
-        } else {
-          alert('Por favor, reformulè su pregunta.');
-          retryCount = 0;
-          console.log(retryCount);
-        }
       
+Swal.fire({
+  title: 'No se pudo ejecutar su consulta ',
+  text: "La consulta no se generó como se esperaba. ¿Deseas intentarlo nuevamente?",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Aceptar'
+}).then((result) => {
+  if (result.isConfirmed) {
+    retryCount++;
+    if (retryCount < 2) {
+      setTimeout(() => {
+      handleClick(e, prompt);
+      }, 2000);
+      console.log(retryCount);
+    }  else {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Por favor, reformulé su pregunta.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      })
+      retryCount = 0;
+      console.log(retryCount);
+    }
+    
+  }
+})
     }
   }
 }
