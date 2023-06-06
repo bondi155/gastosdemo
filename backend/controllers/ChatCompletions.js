@@ -1,29 +1,14 @@
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY, 
 });
 const pool = require('../config/postdbconfig');
-const axios = require('axios');
-//const natural = require('natural');
-//const tokenizer = new natural.WordTokenizer();
 const openai = new OpenAIApi(configuration);
 
 async function ChatCompletions(req, res) {
   const prompt = req.body.prompt;
   const messages = req.body.messages;
 
-  //divido el prompt en palabras
-  /* const tokens = tokenizer.tokenize(prompt);
-
-   const gastosKeywords = [
-      'gastos',
-      'mis',
-    ' informacion',
-      'mi'
-    ];
- const result = gastosKeywords.some((gastosKeywords) =>
-    prompt.includes(gastosKeywords)
-  );*/
   let errorMsg;
   let errorSeverity;
   let errorCode;
@@ -32,7 +17,6 @@ async function ChatCompletions(req, res) {
   let errorLine;
   let errorRoutine;
 
-  let responseGastos = [];
 
   if (!prompt) {
     console.error('No se proporcionó ninguna pregunta.');
@@ -43,30 +27,11 @@ async function ChatCompletions(req, res) {
   //hacemos que busque el token destructurado del prompt
   //const tokenResult = tokens.some(token => gastosKeywords.includes(token));
   try {
-    const apiResponse = await axios.get(
-      'http://localhost:5005/consultaformgasto'
-    );
+   
 
     const contentPostgre = `Por favor trabaja como un sql translate para PostgreSQL Nunca incluyas comentarios, solo la consulta.
     Acuerdate que current_date en PostgreSQL es clock_timestamp y que necesito solo el query sin ninguna palabra ni comentario de mas por favor!`;
 
-    //convertir la respuesta de la base de datos en lenguaje natural ...esa sera la verdadera const gastosMessage...
-    responseGastos = apiResponse.data;
-
-    /*const gastosMessage = `El usuario tiene los siguientes datos de gastos:
-        - Formato de pago: deposito
-        - FTO: 12345
-        - Sector: contadoria
-        - Razón Social: proveedor 1
-        - Folio: 123456
-        - Total: 5567
-        - descripcion : silla, mesa
-        `;
-      console.log(responseGastos); falta crear de resppnseGastsos la respuesta en lenguaje natural acordarse
-
-
-      console.log(gastosMessage);
-        */
 
     const responseGpt = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
@@ -153,12 +118,19 @@ async function ChatCompletions(req, res) {
 
 
     } catch (error) {
-      res.status(503).json({ error: error.toString() });
-      console.error(error);
-      console.error(
-        'Error : la pregunta no contiene ninguna consulta coherente',
-        
-      );
+      if (error.code === 'ENOTFOUND') {
+        console.error(error.code, 'Error de conexión. Asegúrese de que esté conectado a internet o que su apiKey sea correcta.');
+        res.status(503).json({ code: error.code });
+      }
+     if( error.message === 'Request failed with status code 401'){
+        console.error(error.message, 'Asegurese que su apiKey sea correcta.')//okey
+        res.status(503).json({ code: 'UNAUTHORIZED' });
+      
+      } if (error.message === "Cannot read properties of null (reading '0')"){
+        console.error(error,'No entendí su pregunta');
+        res.status(503).json({ code: 'PREGUNTA_INCO' });
+  
+      } 
     }
 
 }

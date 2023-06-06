@@ -50,10 +50,17 @@ function OpenIA() {
             { text: 'Lo siento, no pude encontrar información. Por favor, reformule su pregunta', sender: 'IA' },
           ]);
         }
-        else if (error.response.status === 503) {
+        if (error.response.data.code === 'ENOTFOUND'|| error.response.data.code === 'UNAUTHORIZED') {
           setMessages((prevMessages) => [
             ...prevMessages,
-            { text: 'Lo siento, no entendi su petición', sender: 'IA' },
+            { text: 'Estoy teniendo un error de comunicación, Por favor contacta con soporte.', sender: 'IA' },
+          ]); 
+          alert('error de conexion');
+
+        }else if (error.response.data.code === 'PREGUNTA_INCO') {
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { text: 'No tengo información sobre lo que me solicita', sender: 'IA' },
           ]);
         }
       }
