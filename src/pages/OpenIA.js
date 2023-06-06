@@ -6,14 +6,14 @@ import '../css/App.css';
 import { useRecoilState } from 'recoil';
 import { queryResults } from '../storage/GlobalStates';
 import ChatGrid from '../maps/ChatGrid';
-import 'bootswatch/dist/cerulean/bootstrap.min.css'; // Added this :boom:
 import Swal from 'sweetalert2'
+
 function OpenIA() {
   const [messages, setMessages] = useState([]);
   const [prompt, setPrompt] = useState('');
   const [queryRes, setQueryRes] = useRecoilState(queryResults);
   const [loading, setLoading] = useState(false);
-  let retryCount = 0;
+  //let retryCount = 0;
 
   
   const handleClick = async (e) => {
@@ -42,51 +42,22 @@ function OpenIA() {
     } catch (error) {
       setLoading(false);
       console.log(error.response.data);
-     if (error.response && error.response.data && error.response.data.error) {
-    if ( error.response.status === 500) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Hubo un problema de comunicaciòn. Por favor, intenta nuevamente. Si el problema persiste, comunicarse con soporte.',
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
-      })
-      
-
-
-    } if (error.response.data.error === 'Hubo un error ejecutandose el query') {
-      
-Swal.fire({
-  title: 'No se pudo ejecutar su consulta ',
-  text: "La consulta no se generó como se esperaba. ¿Deseas intentarlo nuevamente?",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Aceptar'
-}).then((result) => {
-  if (result.isConfirmed) {
-    retryCount++;
-    if (retryCount < 2) {
-      setTimeout(() => {
-      handleClick(e, prompt);
-      }, 2000);
-      console.log(retryCount);
-    }  else {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Por favor, reformulé su pregunta.',
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
-      })
-      retryCount = 0;
-      console.log(retryCount);
+      if (error.response && error.response.data) {
+        if (error.response.data.error === 'Hubo un error ejecutandose el query') {
+          //aqui que el chat me responda un mensaje 
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { text: 'Lo siento, no pude encontrar información. Por favor, reformule su pregunta', sender: 'IA' },
+          ]);
+        }
+        else if (error.response.status === 503) {
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            { text: 'Lo siento, no entendi su petición', sender: 'IA' },
+          ]);
+        }
+      }
     }
-    
-  }
-})
-    }
-  }
-}
   };
 
   const messagesEndRef = useRef(null);

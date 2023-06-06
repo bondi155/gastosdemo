@@ -2,7 +2,7 @@ const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const pool = require ('../config/postdbconfig');
+const pool = require('../config/postdbconfig');
 const axios = require('axios');
 //const natural = require('natural');
 //const tokenizer = new natural.WordTokenizer();
@@ -24,6 +24,14 @@ async function ChatCompletions(req, res) {
  const result = gastosKeywords.some((gastosKeywords) =>
     prompt.includes(gastosKeywords)
   );*/
+  let errorMsg;
+  let errorSeverity;
+  let errorCode;
+  let errorPosition;
+  let errorFile;
+  let errorLine;
+  let errorRoutine;
+
   let responseGastos = [];
 
   if (!prompt) {
@@ -77,14 +85,10 @@ async function ChatCompletions(req, res) {
     const gptResponseContent =
       responseGpt.data.choices[0].message.content.trim();
 
+    let sqlQuery = gptResponseContent.match(/(SELECT.*;)/is)[0];
+    console.log('respuesta segmentada :', sqlQuery);
 
- let sqlQuery = gptResponseContent.match(/(SELECT.*;)/is)[0];
-console.log("respuesta segmentada :",sqlQuery);
-
-    console.log(
-      'respuesta del chat :',
-      responseGpt.data.choices[0].message
-    );
+    console.log('respuesta del chat :', responseGpt.data.choices[0].message);
 
     //console.log(gptResponseContent);
 
@@ -93,29 +97,70 @@ console.log("respuesta segmentada :",sqlQuery);
     //haciendo select con la variable del response de chatGPT
     //const queryChat = prueba;
 
-pool.query(sqlQuery, (err, result) => {
-    if(err) {
-        console.log(err);
-        res.status(500).json({error: "Hubo un error ejecutandose el query"});
-    } else {
-        console.log(result.rows);
-        const finalResponse = {
+      pool.query(sqlQuery, (err, result) => {
+        if (err) {
+          errorMsg = err.message;
+          errorSeverity = err.severity;
+          errorCode = err.code;
+          errorPosition = err.position;
+          errorFile = err.file;
+          errorLine = err.line;
+          errorRoutine = err.routine;
+          console.log(errorPosition)
+          console.log(errorMsg)
+          console.log(errorCode)
+          res.status(500).json({ error: 'Hubo un error ejecutandose el query' });
+
+          // Insertar en la base de datos aquí
+    const errorQuery = `
+    INSERT INTO stage.error_logs (message, severity, code, position, file, line, routine, timestamp, prompt , respuesta)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, NOW(), $8, $9)
+  `;
+  pool.query(
+    errorQuery,
+    [
+      errorMsg,
+      errorSeverity,
+      errorCode,
+      errorPosition,
+      errorFile,
+      errorLine,
+      errorRoutine,
+      prompt,
+      gptResponseContent.replace(/\n/g, ' '), // Reemplazar los caracteres de salto de línea por espacios en blanco
+
+
+    ],
+    (err, result) => {
+      if (err) {
+        console.error('Error al registrar el error en la base de datos:', err);
+      } else {
+        console.log('Datos del error registrado correctamente en la base de datos.');
+      }
+    }
+  );
+        //parte importante 
+        } else {
+          console.log(result.rows);
+          const finalResponse = {
             message: gptResponseContent,
-           results: result.rows,
-        };
-        res.json(finalResponse);
-    }});
-  
-  } catch (error) {
-    res.status(500).json({ error: error.response.data.error});
-   // console.error(error)
-    console.error(
-      'Error al llamar a la API de OpenAI:',
-      error.code,
-      error.response.status,
-      error.response.data.error.code
-    );
-  }
+            results: result.rows,
+          };
+          res.json(finalResponse);
+        }
+
+      });
+
+
+    } catch (error) {
+      res.status(503).json({ error: error.toString() });
+      console.error(error);
+      console.error(
+        'Error : la pregunta no contiene ninguna consulta coherente',
+        
+      );
+    }
+
 }
 
 module.exports = {
